@@ -26,18 +26,21 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v1
         with:
-          version: v3.8.1
+          version: v3.9.3
       # https://hoetker.engineer/post/helm-github-workflow-dependency/
       # This is bad practise, but it works for now. Chart-releaser 
       #  should add the helm repos but doesn't
+      #TODO fix hard coding
       - name: Add Helm dependency repos
         run: |
-          helm dependency update charts/hypha
           helm repo add docker-registry https://helm.twun.io
           helm repo add minio https://charts.min.io/
           helm repo add redis https://charts.bitnami.com/bitnami
-          helm repo update
 
+      - name: update and build Helm dependency repos
+        run: |
+          helm dependency update charts/hypha
+          helm dependency build charts/hypha
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.4.0
         env:

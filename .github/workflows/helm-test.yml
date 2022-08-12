@@ -31,7 +31,7 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v1
         with:
-          version: v3.7.1
+          version: v3.9
       # - uses: actions/setup-node@v2
         # - uses: actions/setup-python@v2
       - name: helm-diff
@@ -39,9 +39,15 @@ jobs:
       # - name: install helmsman
       #   run: 'curl -L https://github.com/Praqma/helmsman/releases/download/v3.8.1/helmsman_3.8.1_linux_amd64.tar.gz | tar zx && mv helmsman /usr/local/bin/helmsman'
       # now you can run kubectl to see the pods in the cluster
-      - run: if [ -f "./Chart.lock" ]; then cat ./Chart.lock | grep repository | awk '{print $2}' | while read -r line ; do helm repo add $line $line; done; fi
-      # TODO fix hardcoding of paths
-      - run: helm dependency build charts/hypha
+      - name: Add Helm dependency repos
+        run: |
+          helm repo add docker-registry https://helm.twun.io
+          helm repo add minio https://charts.min.io/
+          helm repo add redis https://charts.bitnami.com/bitnami
+      - name: update and build Helm dependency repos
+        run: |
+              helm dependency update charts/hypha
+              helm dependency build charts/hypha
       - run: helm install --dry-run --debug --generate-name charts/hypha --dependency-update 
       - run: helm install --debug --generate-name charts/hypha
   
