@@ -40,9 +40,10 @@ jobs:
       #   run: 'curl -L https://github.com/Praqma/helmsman/releases/download/v3.8.1/helmsman_3.8.1_linux_amd64.tar.gz | tar zx && mv helmsman /usr/local/bin/helmsman'
       # now you can run kubectl to see the pods in the cluster
       - run: if [ -f "./Chart.lock" ]; then cat ./Chart.lock | grep repository | awk '{print $2}' | while read -r line ; do helm repo add $line $line; done; fi
-      - run: helm dependency build helm-chart/hypha
-      - run: helm install --dry-run --debug --generate-name helm-chart/hypha --dependency-update 
-      - run: helm install --debug --generate-name helm-chart/hypha
+      # TODO fix hardcoding of paths
+      - run: helm dependency build charts/hypha
+      - run: helm install --dry-run --debug --generate-name charts/hypha --dependency-update 
+      - run: helm install --debug --generate-name charts/hypha
   
 
 
