@@ -1,0 +1,139 @@
+# Default values for imjoy-app-engine.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+acmeEmail: "oeway007@gmail.com"
+# container:
+certSecretName: imjoy-app-engine-tls
+imjoyHostName:  https://hypha.imjoy.io
+# imjoyHostName: hypha.imjoy.io
+s3ConsoleHostName: https://hs3c.imjoy.io
+s3_endpoint_url_public: https://hs3.imjoy.io
+# s3_endpoint_url: ""
+auth0_audience: https://imjoy.eu.auth0.com/api/v2/
+auth0_domain: imjoy.eu.auth0.com
+jwt_secret: 352esl345IEo3kjsw3fsdf39sdfl3K23KJE#D*#4d
+
+image:
+  # repository: ghcr.io/ctr26/hypha
+  repository: ghcr.io/imjoy-team/hypha
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "v0.15.6"
+
+# s3_access_key: rootuser
+# s3_secret_key: rootpass123
+triton_url: "http://tritoninferenceserver.tritoninferenceserver.svc.cluster.local:8000"
+# port: 9520
+# productionMode: false # using `letsencrypt-prod` if set to true
+service:
+  # name: hypha
+  type: ClusterIP
+  # sessionAffinity: None
+  # sessionAffinityConfig: {}
+  # clusterIP:
+  port: 80
+  # nodePort:
+  # loadBalancerIP:
+  # loadBalancerSourceRanges:
+  annotations: {}
+  # foo.io/bar: "true"
+
+ingress:
+  enabled: true
+  className: nginx
+  path: /
+  # Used to create an Ingress record.
+  hosts:
+    - imjoy.duckdns.org
+    # - hypha.imjoy.io
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  labels: {}
+  # tls:
+    # Secrets must be manually created in the namespace.
+    # - secretName: chart-example-tls
+    #   hosts:
+    #     - chart-example.local
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+redis:
+  enabled: false
+
+docker-registry:
+  enabled: false
+  # storage: s3
+  # secrets:
+  #   s3:
+  #     accessKey: imjoy
+  #     secretKey: Nbj2cbcUDGGy7QNS8RjCwMrNRXrp2Ms7UXeF
+  # s3:
+  #   region: EU
+  #   regionEndpoint: http://minio-s3:9000
+  #   bucket: docker-registry
+  #   secure: false
+  # service:
+  #   port: 5000
+  #   nodePort: 31822 # only valid when using NodePort
+
+minio:
+  # nameOverride: "minio"
+  fullnameOverride: "minio"
+  enabled: true
+  rootUser: rootuser
+  rootPassword: rootpass123
+  publicEndpointUrl: https://hs3.imjoy.io
+  browserRedirectUrl: https://hs3c.imjoy.io
+  
+  # accessKey: ""
+  # secretKey: ""
+  replicas: 4
+  ingress:
+    enabled: true
+    # annotations:
+    #   nginx.ingress.kubernetes.io/rewrite-target: /$2
+    # path: /s3(/|$)(.*)
+    hosts:
+      - hs3.imjoy.io
+  resources:
+    requests:
+      memory: 2Gi
+  persistence:
+    size: 10Gi
+
+tritoninfereceserver-hypha:
+  enabled: true
+  fullnameOverride: "tritoninfereceserver"
+  replicaCount: 1
+  image:
+    imageName: nvcr.io/nvidia/tritonserver:21.10-py3
+    pullPolicy: IfNotPresent
+    # modelRepositoryPath: s3://imjoy-s3.pasteur.fr:80/model-repository
+    modelRepositoryPath: /model-repository
+    modelSnapshotsPath: /model-snapshots
+    numGpus: 0
+    s3Endpoint: https://uk1s3.embassy.ebi.ac.uk
+    s3Bucket: s3://model-repository/
+  ingress:
+    enabled: false
+  resources:
+    requests:
+      nvidia.com/gpu: 1
+      memory: "32Gi"
+      cpu: "4"
+    limits:
+      nvidia.com/gpu: 1
+      memory: "32Gi"
+      cpu: "4"
+  # service:
+  #   type: ClusterIP
+
+  service:
+    type: ClusterIP
