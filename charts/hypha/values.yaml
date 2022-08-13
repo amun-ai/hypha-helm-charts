@@ -2,42 +2,27 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 replicaCount: 1
-acmeEmail: "***REMOVED***"
-# container:
+acmeEmail: ""
 certSecretName: imjoy-app-engine-tls
 imjoyHostName:  https://hypha.imjoy.io
-# imjoyHostName: hypha.imjoy.io
 s3ConsoleHostName: https://hs3c.imjoy.io
 s3_endpoint_url_public: https://hs3.imjoy.io
 # s3_endpoint_url: ""
 auth0_audience: https://imjoy.eu.auth0.com/api/v2/
 auth0_domain: imjoy.eu.auth0.com
-jwt_secret: ***REMOVED***
+jwt_secret: ""
 
 image:
-  # repository: ghcr.io/ctr26/hypha
   repository: ghcr.io/imjoy-team/hypha
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
   tag: "v0.15.6"
 
-# s3_access_key: rootuser
-# s3_secret_key: rootpass123
 triton_url: "http://tritoninferenceserver.tritoninferenceserver.svc.cluster.local:8000"
-# port: 9520
-# productionMode: false # using `letsencrypt-prod` if set to true
+
 service:
-  # name: hypha
   type: ClusterIP
-  # sessionAffinity: None
-  # sessionAffinityConfig: {}
-  # clusterIP:
   port: 80
-  # nodePort:
-  # loadBalancerIP:
-  # loadBalancerSourceRanges:
   annotations: {}
-  # foo.io/bar: "true"
 
 ingress:
   enabled: true
@@ -69,20 +54,6 @@ redis:
 
 docker-registry:
   enabled: false
-  # storage: s3
-  # secrets:
-  #   s3:
-  #     accessKey: imjoy
-  #     secretKey: ***REMOVED***
-  # s3:
-  #   region: EU
-  #   regionEndpoint: http://minio-s3:9000
-  #   bucket: docker-registry
-  #   secure: false
-  # service:
-  #   port: 5000
-  #   nodePort: 31822 # only valid when using NodePort
-
 minio:
   # nameOverride: "minio"
   fullnameOverride: "minio"
@@ -92,14 +63,10 @@ minio:
   publicEndpointUrl: https://hs3.imjoy.io
   browserRedirectUrl: https://hs3c.imjoy.io
   
-  # accessKey: ""
-  # secretKey: ""
   replicas: 4
   ingress:
     enabled: true
-    # annotations:
-    #   nginx.ingress.kubernetes.io/rewrite-target: /$2
-    # path: /s3(/|$)(.*)
+
     hosts:
       - hs3.imjoy.io
   resources:
@@ -132,8 +99,7 @@ tritoninfereceserver-hypha:
       nvidia.com/gpu: 1
       memory: "32Gi"
       cpu: "4"
-  # service:
-  #   type: ClusterIP
+
 
   service:
     type: ClusterIP
