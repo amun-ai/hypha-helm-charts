@@ -1,5 +1,9 @@
-Helm-chart can be found in ./helm-chart and installed manually with
+# Hypha server helm chart
 
-    helm install --debug --generate-name charts/hypha --dependency-update
+Helm-chart can be found in './charts' and can installed manually with
 
+    helm install --generate-name charts/hypha --dependency-update
 
+A values file can be passed in using:
+
+    helm install --values values.yaml --generate-name charts/hypha --dependency-update
