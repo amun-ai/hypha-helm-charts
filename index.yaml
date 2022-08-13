@@ -28,4 +28,15 @@ entries:
     urls:
     - https://github.com/amun-ai/hypha-helm-charts/releases/download/hypha-0.15.6/hypha-0.15.6.tgz
     version: 0.15.6
-generated: "2022-08-12T17:07:45.414254453Z"
+  tritoninfereceserver-hypha:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-08-13T07:51:27.625540657Z"
+    description: A Helm chart for deploying ImJoy App Engine to Kubernetes
+    digest: 5fa7845ded2066f465b10c3e799e30f21f3c6a9ed15ced01395425bd76e0004b
+    name: tritoninfereceserver-hypha
+    type: application
+    urls:
+    - https://github.com/amun-ai/hypha-helm-charts/releases/download/tritoninfereceserver-hypha-1.0.1/tritoninfereceserver-hypha-1.0.1.tgz
+    version: 1.0.1
+generated: "2022-08-13T07:51:27.625565558Z"
