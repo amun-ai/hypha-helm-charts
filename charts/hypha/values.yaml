@@ -15,7 +15,7 @@ jwt_secret: "xZ/aDcP+PfoTWgwA9ZADTtU/+djwMeMKz4QlSKRcgEs="
 image:
   repository: ghcr.io/imjoy-team/hypha
   pullPolicy: IfNotPresent
-  tag: "v0.15.6"
+  tag: "0.15.8"
 
 triton_url: "http://tritoninferenceserver.tritoninferenceserver.svc.cluster.local:8000"
 
@@ -89,16 +89,24 @@ tritoninfereceserver-hypha:
     s3Bucket: s3://model-repository/
   ingress:
     enabled: false
+  # resources:
+  #   requests:
+  #     nvidia.com/gpu: 1
+  #     memory: "32Gi"
+  #     cpu: "4"
+  #   limits:
+  #     nvidia.com/gpu: 1
+  #     memory: "32Gi"
+  #     cpu: "4"
   resources:
     requests:
-      nvidia.com/gpu: 1
-      memory: "32Gi"
-      cpu: "4"
+      nvidia.com/gpu: 0
+      memory: "1Gi"
+      cpu: "0.1"
     limits:
-      nvidia.com/gpu: 1
-      memory: "32Gi"
-      cpu: "4"
-
+      nvidia.com/gpu: 0
+      memory: "1Gi"
+      cpu: "0.1"
 
   service:
     type: ClusterIP
