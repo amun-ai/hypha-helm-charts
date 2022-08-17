@@ -7,3 +7,7 @@ Helm-chart can be found in './charts' and can installed manually with
 A values file can be passed in using:
 
     helm install --values values.yaml --generate-name charts/hypha --dependency-update
+
+Generate a secret:
+
+    openssl rand -base64 32
