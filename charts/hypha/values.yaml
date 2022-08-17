@@ -58,10 +58,10 @@ minio:
   # nameOverride: "minio"
   fullnameOverride: "minio"
   enabled: true
-  rootUser: rootuser
-  rootPassword: rootpass123
-  publicEndpointUrl: https://hs3.imjoy.io
-  browserRedirectUrl: https://hs3c.imjoy.io
+  rootUser: "minio"
+  rootPassword: "minio"
+  publicEndpointUrl: ""
+  browserRedirectUrl: ""
   
   replicas: 4
   ingress:
