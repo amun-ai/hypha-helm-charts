@@ -59,14 +59,13 @@ minio:
   fullnameOverride: "minio"
   enabled: true
   rootUser: "minio"
-  rootPassword: "minio"
+  rootPassword: "minio123"
   publicEndpointUrl: ""
   browserRedirectUrl: ""
   
   replicas: 4
   ingress:
     enabled: true
-
     hosts:
       - hs3.imjoy.io
   resources:
