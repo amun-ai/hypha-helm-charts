@@ -53,6 +53,7 @@ spec:
             --port={{ .Values.service.port}} \
             --enable-server-apps \
             --enable-s3 \
+            --exit-on-error=false \
             --public-base-url={{ .Values.imjoyHostName }} \
             --access-key-id={{ $S3_ACCESS_KEY }} \
             --secret-access-key={{ $S3_SECRET_KEY }} \
