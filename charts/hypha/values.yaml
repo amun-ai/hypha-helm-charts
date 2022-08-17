@@ -10,7 +10,7 @@ s3_endpoint_url_public: https://hs3.imjoy.io
 # s3_endpoint_url: ""
 auth0_audience: https://imjoy.eu.auth0.com/api/v2/
 auth0_domain: imjoy.eu.auth0.com
-jwt_secret: ""
+jwt_secret: "xZ/aDcP+PfoTWgwA9ZADTtU/+djwMeMKz4QlSKRcgEs="
 
 image:
   repository: ghcr.io/imjoy-team/hypha
