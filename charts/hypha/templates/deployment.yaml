@@ -47,19 +47,18 @@ spec:
       - name:  {{ .Chart.Name }}
         command: ["/bin/sh", "-c"]
         args:
-         - >
-            python -m hypha.server
+        - |
+          python3 -m hypha.server
             --host=0.0.0.0
             --port={{ .Values.service.port}}
             --enable-server-apps
             --in-docker
             --enable-s3
             --public-base-url={{ .Values.imjoyHostName }}
+            --access-key-id={{ $S3_ACCESS_KEY }}
+            --secret-access-key={{ $S3_SECRET_KEY }}
             --endpoint-url=http://{{ .Values.minio.fullnameOverride }}:{{.Values.minio.service.port}}
             --endpoint-url-public={{ $S3_ENDPOINT_URL_PUBLIC }}
-            --secret-access-key={{ $S3_SECRET_KEY }}
-            --apps-dir=/home/hypha-apps
-            --executable-path=/home/bin
             {{- if (index .Values "tritoninfereceserver-hypha" "enabled") }}
             --triton-servers=http://{{(index .Values "tritoninfereceserver-hypha" "fullnameOverride")}}:{{(index .Values "tritoninfereceserver-hypha" "service" "port")}}
             {{- end }}
