@@ -1,6 +1,6 @@
 replicaCount: 1
 image:
-  imageName: nvcr.io/nvidia/tritonserver:21.10-py3
+  imageName: nvcr.io/nvidia/tritonserver:22.04-py3
   pullPolicy: IfNotPresent
   # modelRepositoryPath: s3://imjoy-s3.pasteur.fr:80/model-repository
   modelRepositoryPath: /model-repository
@@ -15,7 +15,7 @@ ingress:
   path: /
   # Used to create an Ingress record.
   hosts:
-    - chart-example.local
+  - chart-example.local
 #   annotations:
 #     nginx.ingress.kubernetes.io/rewrite-target: /$2
 #     # # cert-manager.io/cluster-issuer: letsencrypt-production
