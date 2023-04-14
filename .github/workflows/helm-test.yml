@@ -48,8 +48,9 @@ jobs:
         run: |
               helm dependency update charts/hypha
               helm dependency build charts/hypha
-      - run: helm install --dry-run --debug --generate-name charts/hypha --dependency-update 
-      - run: helm install --debug --generate-name charts/hypha
+      - run: helm install --dry-run hypha --debug charts/hypha --dependency-update 
+      - run: helm install hypha --debug  charts/hypha
+      # - run: helm install --debug --generate-name charts/hypha
   
 
 
