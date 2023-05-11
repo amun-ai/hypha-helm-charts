@@ -52,17 +52,21 @@ spec:
       securityContext:
         # fsGroup: 1000
         runAsUser: 0
-      initContainers:
-        - name: model-copy-s3
-          # image: amazon/aws-cli
-          image: amazon/aws-cli
-          command: ["/bin/sh", "-c"]
-          args:
-            - >
-              aws --no-sign-request --endpoint-url {{ .Values.image.s3Endpoint }} s3 sync {{ .Values.image.s3Bucket }} {{ .Values.image.modelRepositoryPath }}
-          volumeMounts:
-            - mountPath: {{ .Values.image.modelRepositoryPath }}
-              name: model-repository
+        # TOO SLOW 
+      # initContainers:
+      #   - name: model-mount-s3
+      #     image: efrecon/s3fs
+      #     command: ["/bin/sh", "-c"]
+      #     args:
+      #     - >
+      #       mkdir -p {{ .Values.image.modelRepositoryPath }};
+      #       s3fs {{ .Values.image.s3Bucket }} {{ .Values.image.modelRepositoryPath }} -o url={{ .Values.image.s3Endpoint }} -o use_path_request_style -o nonempty -o public_bucket=1;
+      #       chmod -R g+rw {{ .Values.image.modelRepositoryPath }}
+      #     securityContext:
+      #       runAsUser: 0
+      #     volumeMounts:
+      #     - mountPath: {{ .Values.image.modelRepositoryPath }}
+      #       name: model-repository
       containers:
         - name: tritoninferenceserver
           image: {{ .Values.image.imageName }}
@@ -79,16 +83,17 @@ spec:
           - name: MODEL_SNAPSHOTS_DIRECTORY
             value: "{{ .Values.image.modelSnapshotsPath }}"
           imagePullPolicy: IfNotPresent
-          livenessProbe:
-            httpGet:
-              path: /v2/health/live
-              port: http
-          readinessProbe:
-            initialDelaySeconds: 500
-            periodSeconds: 5
-            httpGet:
-              path: /v2/health/ready
-              port: http
+        #   TODO Fix probe checks
+        #   livenessProbe:
+        #     httpGet:
+        #       path: /v2/health/live
+        #       port: http
+        #   readinessProbe:
+        #     initialDelaySeconds: 500
+        #     periodSeconds: 5
+        #     httpGet:
+        #       path: /v2/health/ready
+        #       port: http
           resources:
 {{ toYaml .Values.resources | indent 12 }}
           command: ["/bin/sh"]
@@ -97,7 +102,7 @@ spec:
             - >-
               apt update -yq &&
               apt install libgl1-mesa-glx -y &&
-              tritonserver --model-store={{ .Values.image.modelRepositoryPath }} --log-verbose=1 --model-control-mode=poll --repository-poll-secs=60 --exit-on-error=false
+              tritonserver --model-store={{ .Values.image.modelStore }} --log-verbose=1 --model-control-mode=poll --repository-poll-secs=60 --exit-on-error=false --model-repository={{ .Values.image.modelRepository}}
           ports:
             - containerPort: 8000
               name: http
