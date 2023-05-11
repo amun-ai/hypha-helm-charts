@@ -1,6 +1,6 @@
 replicaCount: 1
 image:
-  imageName: nvcr.io/nvidia/tritonserver:22.04-py3
+  imageName: nvcr.io/nvidia/tritonserver:23.04-py3
   pullPolicy: IfNotPresent
   # modelRepositoryPath: s3://imjoy-s3.pasteur.fr:80/model-repository
   modelRepositoryPath: /model-repository
