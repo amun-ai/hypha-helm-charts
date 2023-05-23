@@ -17,7 +17,7 @@
 {{- end }}
 
 
-{{- if (index .Values "tritoninfereceserver-hypha" "enabled") }}
+{{- if (index .Values "tritoninferenceserver-hypha" "enabled") }}
 {{ $TRITON_URL = "http://tritoninferenceserver:8000" }}
 {{- end }}
 
@@ -59,8 +59,8 @@ spec:
             --secret-access-key={{ $S3_SECRET_KEY }} \
             --endpoint-url=http://{{ .Values.minio.fullnameOverride }}:{{.Values.minio.service.port}} \
             --endpoint-url-public={{ $S3_ENDPOINT_URL_PUBLIC }} \
-            {{- if (index .Values "tritoninfereceserver-hypha" "enabled") }}
-            --triton-servers=http://{{(index .Values "tritoninfereceserver-hypha" "fullnameOverride")}}:{{(index .Values "tritoninfereceserver-hypha" "service" "port")}} \
+            {{- if (index .Values "tritoninferenceserver-hypha" "enabled") }}
+            --triton-servers=http://{{(index .Values "tritoninferenceserver-hypha" "fullnameOverride")}}:{{(index .Values "tritoninferenceserver-hypha" "service" "port")}} \
             {{- end }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}

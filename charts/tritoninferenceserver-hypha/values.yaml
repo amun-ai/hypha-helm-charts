@@ -47,7 +47,7 @@ ingress:
 #   #  memory: 128Mi
 
 service:
-  name: tritoninfereceserver
+  name: tritoninferenceserver
   type: ClusterIP
   # sessionAffinity: None
   # sessionAffinityConfig: {}

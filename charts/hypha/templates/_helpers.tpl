@@ -21,7 +21,7 @@
 {{- end -}}
 
 {{- define "triton.url" -}}
-{{- if (index .Values "tritoninfereceserver-hypha" "enabled") -}}
+{{- if (index .Values "tritoninferenceserver-hypha" "enabled") -}}
 {{- printf "http://tritoninferenceserver.%s.svc.cluster.local:%s" (.Values.namespace | default .Release.Namespace) "8000" -}}
 {{- else -}}
 {{ .Values.triton_url}}
