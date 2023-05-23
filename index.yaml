@@ -3,6 +3,33 @@ entries:
   hypha:
   - apiVersion: v2
     appVersion: 0.15.8
+    created: "2023-05-23T13:22:35.486595326Z"
+    dependencies:
+    - condition: docker-registry.enabled
+      name: docker-registry
+      repository: https://helm.twun.io
+      version: 2.1.0
+    - condition: minio.enabled
+      name: minio
+      repository: https://charts.min.io/
+      version: 3.3.0
+    - condition: tritoninferenceserver-hypha.enabled
+      name: tritoninferenceserver-hypha
+      repository: file://../tritoninferenceserver-hypha
+      version: 1.0.3
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.9.4
+    description: A Helm chart for deploying Hypha to Kubernetes
+    digest: 2e903735474b7761e1f337034ebc67d53e1ad965200c7452cedc1cbaaefc1ac6
+    name: hypha
+    type: application
+    urls:
+    - https://github.com/amun-ai/hypha-helm-charts/releases/download/hypha-0.15.11/hypha-0.15.11.tgz
+    version: 0.15.11
+  - apiVersion: v2
+    appVersion: 0.15.8
     created: "2023-05-12T10:47:42.583565299Z"
     dependencies:
     - condition: docker-registry.enabled
@@ -292,4 +319,15 @@ entries:
     urls:
     - https://github.com/amun-ai/hypha-helm-charts/releases/download/tritoninfereceserver-hypha-1.0.1/tritoninfereceserver-hypha-1.0.1.tgz
     version: 1.0.1
-generated: "2023-05-12T10:47:42.583613379Z"
+  tritoninferenceserver-hypha:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-05-23T13:22:35.726377381Z"
+    description: A Helm chart for deploying ImJoy App Engine to Kubernetes
+    digest: 3113fa5af77c1add0fd1c9d6650bfb82f7d15ee179b4e3f25fa48769b4127b50
+    name: tritoninferenceserver-hypha
+    type: application
+    urls:
+    - https://github.com/amun-ai/hypha-helm-charts/releases/download/tritoninferenceserver-hypha-1.0.3/tritoninferenceserver-hypha-1.0.3.tgz
+    version: 1.0.3
+generated: "2023-05-23T13:22:35.726544988Z"
