@@ -14,7 +14,7 @@
 {{- end }}
 
 
-{{- if (index .Values "tritoninfereceserver-hypha" "enabled") }}
+{{- if (index .Values "tritoninferenceserver-hypha" "enabled") }}
 {{ $TRITON_URL = "http://tritoninferenceserver:8000" }}
 {{- end }}
 

@@ -5,7 +5,7 @@ dependencies:
 - name: minio
   repository: https://charts.min.io/
   version: 3.3.0
-- name: tritoninfereceserver-hypha
+- name: tritoninferenceserver-hypha
   repository: file://../tritoninferenceserver-hypha
   version: 1.0.2
 - name: redis
