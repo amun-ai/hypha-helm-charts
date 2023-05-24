@@ -3,6 +3,33 @@ entries:
   hypha:
   - apiVersion: v2
     appVersion: 0.15.8
+    created: "2023-05-24T09:48:12.842385668Z"
+    dependencies:
+    - condition: docker-registry.enabled
+      name: docker-registry
+      repository: https://helm.twun.io
+      version: 2.1.0
+    - condition: minio.enabled
+      name: minio
+      repository: https://charts.min.io/
+      version: 3.3.0
+    - condition: tritoninferenceserver-hypha.enabled
+      name: tritoninferenceserver-hypha
+      repository: file://../tritoninferenceserver-hypha
+      version: 1.0.4
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.9.4
+    description: A Helm chart for deploying Hypha to Kubernetes
+    digest: 582d386edf271d43f3b2d126b6fd3d2217fe3ebfd3bdca447d068752af7f1731
+    name: hypha
+    type: application
+    urls:
+    - https://github.com/amun-ai/hypha-helm-charts/releases/download/hypha-0.15.13/hypha-0.15.13.tgz
+    version: 0.15.13
+  - apiVersion: v2
+    appVersion: 0.15.8
     created: "2023-05-23T13:22:35.486595326Z"
     dependencies:
     - condition: docker-registry.enabled
@@ -322,6 +349,16 @@ entries:
   tritoninferenceserver-hypha:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-05-24T09:48:12.971733643Z"
+    description: A Helm chart for deploying ImJoy App Engine to Kubernetes
+    digest: b3e6032ceebbf013fe27e024967adc664bd185aebd3af5778c844611333428c1
+    name: tritoninferenceserver-hypha
+    type: application
+    urls:
+    - https://github.com/amun-ai/hypha-helm-charts/releases/download/tritoninferenceserver-hypha-1.0.4/tritoninferenceserver-hypha-1.0.4.tgz
+    version: 1.0.4
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-05-23T13:22:35.726377381Z"
     description: A Helm chart for deploying ImJoy App Engine to Kubernetes
     digest: 3113fa5af77c1add0fd1c9d6650bfb82f7d15ee179b4e3f25fa48769b4127b50
@@ -330,4 +367,4 @@ entries:
     urls:
     - https://github.com/amun-ai/hypha-helm-charts/releases/download/tritoninferenceserver-hypha-1.0.3/tritoninferenceserver-hypha-1.0.3.tgz
     version: 1.0.3
-generated: "2023-05-23T13:22:35.726544988Z"
+generated: "2023-05-24T09:48:12.971919247Z"
