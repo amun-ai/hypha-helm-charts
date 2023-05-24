@@ -102,7 +102,7 @@ spec:
             - >-
               apt update -yq &&
               apt install libgl1-mesa-glx -y &&
-              tritonserver --model-store={{ .Values.image.modelStore }} --log-verbose=1 --model-control-mode=poll --repository-poll-secs=60 --exit-on-error=false --model-repository={{ .Values.image.modelRepository}}
+              tritonserver --model-store={{ .Values.image.modelStore }} --log-verbose=1 --model-control-mode=poll --repository-poll-secs=60 --exit-on-error=false --strict-model-config=false --model-repository={{ .Values.image.modelRepository}}
           ports:
             - containerPort: 8000
               name: http
