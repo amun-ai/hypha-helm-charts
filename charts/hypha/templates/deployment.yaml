@@ -48,20 +48,25 @@ spec:
         command: ["/bin/sh", "-c"]
         args:
         - |
-          python3 -m hypha.server \
+            python3 -m hypha.server \
             --host=0.0.0.0 \
-            --port={{ .Values.service.port}} \
-            --enable-server-apps \
-            --in-docker \
-            --enable-s3 \
-            --public-base-url={{ .Values.imjoyHostName }} \
-            --access-key-id={{ $S3_ACCESS_KEY }} \
-            --secret-access-key={{ $S3_SECRET_KEY }} \
-            --endpoint-url=http://{{ .Values.minio.fullnameOverride }}:{{.Values.minio.service.port}} \
-            --endpoint-url-public={{ $S3_ENDPOINT_URL_PUBLIC }} \
+            --port={{ .Values.service.port }} \
+            --redis-uri=redis://:{{ .Values.redis.global.redis.password }}@{{ .Values.redis.fullnameOverride }}-master:6379/0 \
             {{- if (index .Values "tritoninferenceserver-hypha" "enabled") }}
             --triton-servers=http://{{(index .Values "tritoninferenceserver-hypha" "fullnameOverride")}}:{{(index .Values "tritoninferenceserver-hypha" "service" "port")}} \
             {{- end }}
+            --enable-s3 \
+            --endpoint-url=http://{{ .Values.minio.fullnameOverride }}:{{.Values.minio.service.port}} \
+            --endpoint-url-public={{ $S3_ENDPOINT_URL_PUBLIC }} \
+            --access-key-id={{ $S3_ACCESS_KEY }} \
+            --secret-access-key={{ $S3_SECRET_KEY }} \
+            --executable-path={{ .Values.executablePath }}
+            --enable-server-apps \
+            --apps-dir={{ .Values.appsDir }} \
+            --public-base-url={{ .Values.imjoyHostName }} \
+        # --reset-redis \
+        # --startup-functions={{ .Values.startupFunctionsPath }}:hypha_startup \
+        # --in-docker \
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
