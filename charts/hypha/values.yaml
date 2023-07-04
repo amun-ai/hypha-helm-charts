@@ -12,10 +12,17 @@ auth0_audience: https://imjoy.eu.auth0.com/api/v2/
 auth0_domain: imjoy.eu.auth0.com
 jwt_secret: "xZ/aDcP+PfoTWgwA9ZADTtU/+djwMeMKz4QlSKRcgEs="
 
+# TODO
+# Currently disabled in template because no obvious 
+# way to pass in the scripts to deployment
+startupFunctionsPath: /home/hypha_services/hypha-startup.py
+appsDir: /home/hypha-apps
+executablePath: /home/bin
+
 image:
-  repository: ghcr.io/imjoy-team/hypha
+  repository: ghcr.io/amun-ai/hypha
   pullPolicy: IfNotPresent
-  tag: "0.15.8"
+  tag: "0.15.25"
 
 triton_url: "http://tritoninferenceserver.tritoninferenceserver.svc.cluster.local:8000"
 
@@ -25,7 +32,7 @@ service:
   annotations: {}
 
 ingress:
-  enabled: true
+  enabled: false
   className: nginx
   path: /
   # Used to create an Ingress record.
@@ -50,10 +57,15 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 redis:
-  enabled: false
+  fullnameOverride: "redis"
+  enabled: true
+  global:
+    redis:
+      password: "admin"
 
 docker-registry:
   enabled: false
+
 minio:
   # nameOverride: "minio"
   fullnameOverride: "minio"
