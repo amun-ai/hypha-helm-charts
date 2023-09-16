@@ -3,7 +3,8 @@
 minikube.setup:
 	minikube config set memory 16384
 	minikube config set cpus 4
-	minikube start --addons=gpu,ingress,nvidia-driver-installer,nvidia-gpu-device-plugin  --disk-size=32g
+	minikube config set disk-size 32GB
+	minikube start --addons=gpu,ingress,nvidia-driver-installer,nvidia-gpu-device-plugin 
 
 
 # VERSION=$(shell grep -Eo '[0-9]\.[0-9]\.[0-9]+' helm-chart/hypha/Chart.yaml | head -1)
