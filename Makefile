@@ -23,8 +23,12 @@ tag.release:
 	git tag -a "v${VERSION}" -m "v${VERSION}" -f
 	git push origin
 
-install-and-test:
+install:
 	helm upgrade hypha charts/hypha --install --timeout 20m
+
+test:
 	helm test hypha
+
+install.and.test: install test
  
 
