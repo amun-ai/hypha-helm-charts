@@ -24,10 +24,6 @@ jobs:
         run: kubectl get pods -A
       # - run: sudo apt-get update && sudo apt-get install iptables -y
       # - uses: WyriHaximus/github-action-helm3@v2
-      - name: Install Helmsman
-        run: 'wget -c https://github.com/Praqma/helmsman/releases/download/v3.8.1/helmsman_3.8.1_linux_amd64.tar.gz -O - | tar -xz -C /usr/local/bin/'
-        # - run: which helmsman
-        # - run: ls /usr/local/bin/
       - name: Install Helm
         uses: azure/setup-helm@v1
         with:
