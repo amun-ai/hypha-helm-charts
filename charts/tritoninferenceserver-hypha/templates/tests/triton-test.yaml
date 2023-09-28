@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-triton-test
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  template:
+    spec:
+      containers:
+      - name: triton-test
+        image: nvcr.io/nvidia/tritonserver:23.08-py3-clientsdk
+        command:
+          - "perf_client"
+          - "-m"
+          - "simple_model"
+          - "-u"
+          - "{{ .Release.Name }}-{{ .Values.service.name }}:{{ .Values.service.port }}"
+          - "--concurrency=4"
+      restartPolicy: Never
