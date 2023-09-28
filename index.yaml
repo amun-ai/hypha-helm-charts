@@ -3,6 +3,33 @@ entries:
   hypha:
   - apiVersion: v2
     appVersion: 0.15.25
+    created: "2023-09-28T20:31:58.479198126Z"
+    dependencies:
+    - condition: docker-registry.enabled
+      name: docker-registry
+      repository: https://helm.twun.io
+      version: 2.1.0
+    - condition: minio.enabled
+      name: minio
+      repository: https://charts.min.io/
+      version: 3.3.0
+    - condition: tritoninferenceserver-hypha.enabled
+      name: tritoninferenceserver-hypha
+      repository: file://../tritoninferenceserver-hypha
+      version: 1.0.5
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.11.6
+    description: A Helm chart for deploying Hypha to Kubernetes
+    digest: b56e2563660a1a1cfed4b4ac7b99d949cdaf31f20ab4163f694001129af82592
+    name: hypha
+    type: application
+    urls:
+    - https://github.com/amun-ai/hypha-helm-charts/releases/download/hypha-0.16.0/hypha-0.16.0.tgz
+    version: 0.16.0
+  - apiVersion: v2
+    appVersion: 0.15.25
     created: "2023-07-04T13:56:20.943629756Z"
     dependencies:
     - condition: docker-registry.enabled
@@ -421,4 +448,4 @@ entries:
     urls:
     - https://github.com/amun-ai/hypha-helm-charts/releases/download/tritoninferenceserver-hypha-1.0.3/tritoninferenceserver-hypha-1.0.3.tgz
     version: 1.0.3
-generated: "2023-09-28T20:07:58.830559901Z"
+generated: "2023-09-28T20:31:58.479304127Z"
