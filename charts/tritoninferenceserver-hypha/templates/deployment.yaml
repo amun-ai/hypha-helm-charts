@@ -10,10 +10,6 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
-      {{- if .Values.nodeSelector }}
-      nodeSelector:
-{{ toYaml .Values.nodeSelector | indent 8 }}
-      {{- end }}
   selector:
     matchLabels:
       app: {{ template "tritoninferenceserver.name" . }}
@@ -27,24 +23,13 @@ spec:
 {{ toYaml .Values.podLabels | indent 8 }}
         {{- end }}
     spec:
+      {{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+      {{- end }}
       securityContext:
         # fsGroup: 1000
         runAsUser: 0
-        # TOO SLOW 
-      # initContainers:
-      #   - name: model-mount-s3
-      #     image: efrecon/s3fs
-      #     command: ["/bin/sh", "-c"]
-      #     args:
-      #     - >
-      #       mkdir -p {{ .Values.image.modelRepositoryPath }};
-      #       s3fs {{ .Values.image.s3Bucket }} {{ .Values.image.modelRepositoryPath }} -o url={{ .Values.image.s3Endpoint }} -o use_path_request_style -o nonempty -o public_bucket=1;
-      #       chmod -R g+rw {{ .Values.image.modelRepositoryPath }}
-      #     securityContext:
-      #       runAsUser: 0
-      #     volumeMounts:
-      #     - mountPath: {{ .Values.image.modelRepositoryPath }}
-      #       name: model-repository
       containers:
         - name: tritoninferenceserver
           image: {{ .Values.image.imageName }}
