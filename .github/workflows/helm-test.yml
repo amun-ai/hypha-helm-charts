@@ -32,6 +32,8 @@ jobs:
         uses: azure/setup-helm@v1
         with:
           version: v3.9.3
+      - name: Install chart-testing
+        uses: helm/chart-testing-action@v2.1.0
       # - uses: actions/setup-node@v2
         # - uses: actions/setup-python@v2
       # See https://github.com/helm/chart-testing/blob/main/doc/ct_install.md
