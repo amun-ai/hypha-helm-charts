@@ -7,9 +7,9 @@ dependencies:
   version: 3.3.0
 - name: tritoninferenceserver-hypha
   repository: file://../tritoninferenceserver-hypha
-  version: 1.0.4
+  version: 1.0.5
 - name: redis
   repository: https://charts.bitnami.com/bitnami
   version: 17.11.6
-digest: sha256:54badeeee47a31d44c715b931fca25801036bfebd773806eb31d74d5fa4feeb3
-generated: "2023-07-03T12:44:14.147747653+01:00"
+digest: sha256:f513dba8f9978281f7d8e496c3341cdcabb07389f08fe168e52869b186acc852
+generated: "2023-09-19T10:41:56.049018409+01:00"
