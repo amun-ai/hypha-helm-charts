@@ -8,7 +8,6 @@ image:
   numGpus: 0
   s3Endpoint: https://uk1s3.embassy.ebi.ac.uk
   s3Bucket: s3://model-repository/
-
 ingress:
   enabled: false
   className: nginx
@@ -45,7 +44,6 @@ ingress:
 #   # requests:
 #   #  cpu: 100m
 #   #  memory: 128Mi
-
 service:
   name: tritoninferenceserver
   type: ClusterIP
@@ -68,7 +66,6 @@ service:
       nvidia.com/gpu: 0
       memory: "3Gi"
       cpu: "1"
-
 # # apiVersion: networking.k8s.io/v1
 # # kind: Ingress
 # # metadata:
@@ -105,7 +102,6 @@ service:
 #   name: {{ template "tritoninferenceserver.fullname" . }}
 #   namespace: {{ .Values.namespace | default .Release.Namespace }}
 #   annotations:
-
 #     # nginx.ingress.kubernetes.io/configuration-snippet: |
 #       # more_set_headers "Access-Control-Allow-Headers: Inference-Header-Content-Length,Accept-Encoding,Content-Encoding,Access-Control-Allow-Headers"
 #     # nginx.ingress.kubernetes.io/enable-cors: "true"
@@ -136,13 +132,10 @@ service:
 #   #   - hosts:
 #   #     - "imjoy.duckdns.org"
 #   #     secretName: tls-secret
-
 #   {{- end -}}
-
 autoscaling:
   enabled: false
   minReplicas: 1
   maxReplicas: 5
   gpuUtilization: 50
 #   gpuMemoryUtilization: 50
-
