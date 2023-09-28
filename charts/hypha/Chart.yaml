@@ -53,3 +53,7 @@ dependencies:
     repository: "https://charts.bitnami.com/bitnami"
     version: 17.11.6
     condition: redis.enabled
+
+maintainers:
+  - name: ctr26
+  - name: oeway

@@ -22,3 +22,7 @@ version: 1.0.5
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 appVersion: 21.10-py3
+
+maintainers:
+  - name: ctr26
+  - name: oeway
