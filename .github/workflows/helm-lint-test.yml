@@ -1,13 +1,22 @@
 # See https://github.com/helm/chart-testing-action
 name: Lint and Test Charts
 
-on: [pull_request, workflow_dispatch]
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+  workflow_dispatch:
 
 jobs:
   lint-test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
+    # strategy:
+      # matrix:
         # k8s: ["1.19.16", "1.21.14", "1.22.9", "1.23.12", "1.24.7", "1.25.2"]
     steps:
       - name: Checkout
