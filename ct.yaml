@@ -1,2 +1,9 @@
 target-branch: main
 helm-extra-args: --timeout 1000s
+chart-dirs:
+  - charts
+chart-repos:
+  - bitnami=https://charts.bitnami.com/bitnami
+  - minio=https://charts.min.io/
+  - docker-registry=https://helm.twun.io
+  - redis=https://charts.bitnami.com/bitnami
