@@ -5,3 +5,4 @@
 # !helmsman.yaml
 !charts
 !.github
+!ct.yaml
