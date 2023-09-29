@@ -1,4 +1,3 @@
-
 {{- $S3_ENDPOINT_URL := .Values.s3_endpoint_url -}}
 {{- $S3_ENDPOINT_URL_PUBLIC := .Values.s3_endpoint_url_public -}}
 {{- $S3_ACCESS_KEY := .Values.s3_access_key -}}
@@ -43,6 +42,10 @@ spec:
       labels:
         {{- include "hypha.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+      {{- end }}
       containers:
       - name:  {{ .Chart.Name }}
         command: ["/bin/sh", "-c"]

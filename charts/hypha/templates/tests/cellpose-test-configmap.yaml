@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-test-script
+data:
+  test-hypha.py: |
+
+    import subprocess
+    subprocess.call(["pip", "install", "pyotritonclient", "kaibu-utils","numpy","Pillow"])
+
+    import io
+    from PIL import Image
+    # import matplotlib.pyplot as plt
+    # import numpy as np
+    from pyotritonclient import execute
+    from kaibu_utils import fetch_image
+    import asyncio
+    async def main():
+      image = await fetch_image("https://static.imjoy.io/img/img02.png")
+      image = image.astype("float32")
+      print("example image downloaded: ", image.shape)
+
+      param = {"diameter": 30, "model_type": "cyto"}
+      # run inference
+      results = await execute([image.transpose(2, 0, 1), param],
+                              server_url="http://{{ include "hypha.fullname" . }}/triton",
+                              model_name="cellpose-python",
+                              decode_bytes=True)
+      mask = results["mask"]
+      print("cellpose prediction: ", mask.shape)
+
+    if __name__ == "__main__":
+      asyncio.run(main())

@@ -1,0 +1,45 @@
+# See https://github.com/helm/chart-testing-action
+name: Lint and Test Charts
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+  workflow_dispatch:
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    # strategy:
+      # matrix:
+        # k8s: ["1.19.16", "1.21.14", "1.22.9", "1.23.12", "1.24.7", "1.25.2"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install Helm
+        uses: azure/setup-helm@v1.1
+        # as of 2022/12 the set-output still not fixed in this action
+        # https://github.com/Azure/setup-helm/issues/103
+        with:
+          version: v3.7.0
+
+      - name: Install chart-testing
+        uses: helm/chart-testing-action@v2.1.0
+
+      - name: Run chart-testing (lint)
+        run: ct lint --config ct.yaml
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1.4.0
+
+      # See https://github.com/helm/chart-testing/blob/main/doc/ct_install.md
+      - name: Run chart-testing (install)
+        run: ct install --config ct.yaml --debug

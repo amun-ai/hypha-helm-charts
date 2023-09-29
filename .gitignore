@@ -1,2 +1,8 @@
-secrets.yaml
-.history
+/*
+!.gitignore
+!Makefile
+!README.md
+# !helmsman.yaml
+!charts
+!.github
+!ct.yaml
