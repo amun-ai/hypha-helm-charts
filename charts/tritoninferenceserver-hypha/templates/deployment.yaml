@@ -44,6 +44,8 @@ spec:
             - name: TF_FORCE_GPU_ALLOW_GROWTH
               value: "true"
 {{ toYaml .Values.image.env | indent 12 }}
+          # - name: MODEL_SNAPSHOTS_DIRECTORY
+          #   value: "{{ .Values.image.modelSnapshotsPath }}"
           imagePullPolicy: IfNotPresent
         #   TODO Fix probe checks
         #   livenessProbe:
