@@ -45,6 +45,7 @@ spec:
             value: "true"
           - name: MODEL_SNAPSHOTS_DIRECTORY
             value: "{{ .Values.image.modelSnapshotsPath }}"
+{{ toYaml .Values.env | indent 12 }}
           imagePullPolicy: IfNotPresent
         #   TODO Fix probe checks
         #   livenessProbe:

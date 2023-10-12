@@ -114,13 +114,23 @@ tritoninferenceserver-hypha:
   #     cpu: "4"
   resources:
     requests:
-      nvidia.com/gpu: 0
+      nvidia.com/gpu: 1
       memory: "1Gi"
       cpu: "0.1"
     limits:
-      nvidia.com/gpu: 0
+      nvidia.com/gpu: 1
       memory: "1Gi"
       cpu: "0.1"
 
   service:
     type: ClusterIP
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    gpuUtilization: 50
+    gpuMemoryUtilization: 50
+
+  nodeSelector:
+    cloud.google.com/gke-accelerator: "nvidia-tesla-t4"
