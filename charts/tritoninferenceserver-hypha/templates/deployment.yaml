@@ -41,10 +41,9 @@ spec:
             - mountPath:  {{ .Values.image.modelSnapshotsPath }}
               name: model-snapshots
           env:
-          - name: TF_FORCE_GPU_ALLOW_GROWTH
-            value: "true"
-          - name: MODEL_SNAPSHOTS_DIRECTORY
-            value: "{{ .Values.image.modelSnapshotsPath }}"
+            - name: TF_FORCE_GPU_ALLOW_GROWTH
+              value: "true"
+{{ toYaml .Values.image.env | indent 12 }}
           imagePullPolicy: IfNotPresent
         #   TODO Fix probe checks
         #   livenessProbe:
