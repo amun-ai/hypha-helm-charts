@@ -63,7 +63,7 @@ spec:
             --endpoint-url-public={{ $S3_ENDPOINT_URL_PUBLIC }} \
             --access-key-id={{ $S3_ACCESS_KEY }} \
             --secret-access-key={{ $S3_SECRET_KEY }} \
-            --executable-path={{ .Values.executablePath }}
+            --executable-path={{ .Values.executablePath }} \
             --enable-server-apps \
             --apps-dir={{ .Values.appsDir }} \
             --public-base-url={{ .Values.imjoyHostName }} \
