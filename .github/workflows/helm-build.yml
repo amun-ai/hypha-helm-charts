@@ -1,12 +1,17 @@
-name: Release Charts
+name: Build
 
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - master
+      - dev
+  pull_request:
+    branches:
+      - master
+      - dev
 
 jobs:
-  release:
+  build:
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -23,8 +28,8 @@ jobs:
 
       - name: Install Helm
         uses: azure/setup-helm@v1
-        # with:
-          # version: v3.9.3
+        with:
+          version: v3.9.3
 
       - name: Add Helm dependency repos
         run: |
@@ -37,21 +42,3 @@ jobs:
           helm dependency update charts/hypha
           helm dependency build charts/hypha
 
-      - name: Get semantic version
-        id: semver
-        uses: mathieudutour/github-tag-action@v5.6
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      # - name: Update Chart.yaml version
-      #   uses: fjogeleit/yaml-update-action@v0.13.1
-      #   with:
-      #     valueFile: 'charts/hypha/Chart.yaml'
-      #     propertyPath: 'version'
-      #     value: ${{ steps.semver.outputs.new_tag }}
-
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.4.0
-        env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          VERSION: "${{ steps.semver.outputs.new_tag }}"
