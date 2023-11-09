@@ -29,10 +29,15 @@ jobs:
         # as of 2022/12 the set-output still not fixed in this action
         # https://github.com/Azure/setup-helm/issues/103
         with:
-          version: v3.7.0
+          version: v3.12.1
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          check-latest: true
 
       - name: Install chart-testing
-        uses: helm/chart-testing-action@v2.1.0
+        uses: helm/chart-testing-action@v2.6.0
 
       - name: Run chart-testing (lint)
         run: ct lint --config ct.yaml
