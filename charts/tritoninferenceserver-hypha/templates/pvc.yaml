@@ -1,7 +1,0 @@
-# pvc-pod-demo.yaml
-
-apiVersion: v1
-kind: PersistentVolumeClaim
-{{- if .Values.pvc.metadata }}
-spec:
-{{ toYaml .Values.pvc.spec | indent 2 }}
