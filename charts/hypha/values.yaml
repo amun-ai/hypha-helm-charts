@@ -22,7 +22,7 @@ executablePath: /home/bin
 image:
   repository: ghcr.io/amun-ai/hypha
   pullPolicy: IfNotPresent
-  tag: "0.15.25"
+  tag: "0.15.35"
 
 triton_url: "http://tritoninferenceserver.tritoninferenceserver.svc.cluster.local:8000"
 
