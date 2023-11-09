@@ -4,7 +4,7 @@
 replicaCount: 1
 acmeEmail: ""
 certSecretName: imjoy-app-engine-tls
-imjoyHostName: https://hypha.local
+hyphaHostName: https://hypha.local
 s3ConsoleHostName: https://hs3c.local
 s3_endpoint_url_public: https://hs3.local
 # s3_endpoint_url: ""

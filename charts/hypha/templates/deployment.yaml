@@ -66,7 +66,7 @@ spec:
             --executable-path={{ .Values.executablePath }} \
             --enable-server-apps \
             --apps-dir={{ .Values.appsDir }} \
-            --public-base-url={{ .Values.imjoyHostName }} \
+            --public-base-url={{ .Values.hyphaHostName }} \
         # --reset-redis \
         # --startup-functions={{ .Values.startupFunctionsPath }}:hypha_startup \
         # --in-docker \
