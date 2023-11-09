@@ -70,7 +70,7 @@ minio:
   fullnameOverride: "minio"
   enabled: true
   rootUser: "minio"
-  rootPassword: "xZ/aDcP+PfoTWgwA9ZADTtU/+djwMeMKz4QlSKRcgEs="
+  rootPassword: minio123
   publicEndpointUrl: ""
   browserRedirectUrl: ""
 
