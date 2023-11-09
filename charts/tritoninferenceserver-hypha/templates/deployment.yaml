@@ -36,10 +36,18 @@ spec:
           volumeMounts:
             - mountPath: /dev/shm
               name: dshm
-            - mountPath: {{ .Values.image.modelRepositoryPath }}
-              name: model-repository
-            - mountPath:  {{ .Values.image.modelSnapshotsPath }}
-              name: model-snapshots
+            - mountPath: /opt/tritonserver/caches
+              name: triton-cache
+              subPath: caches
+            - mountPath: /model-repository
+              name: triton-cache
+              subPath: model-repository
+            - mountPath: /model-snapshots
+              name: triton-cache
+              subPath: model-snapshots
+            - mountPath: /tmp
+              name: triton-cache
+              subPath: tmp
           env:
             - name: TF_FORCE_GPU_ALLOW_GROWTH
               value: "true"
@@ -96,3 +104,5 @@ spec:
           emptyDir: {}
         - name: model-snapshots
           emptyDir: {}
+        - name: triton-cache
+{{ toYaml .Values.cache | indent 10 }}
