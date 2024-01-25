@@ -49,23 +49,16 @@ spec:
               name: triton-cache
               subPath: tmp
           env:
+            - name: MODEL_SNAPSHOTS_DIRECTORY
+              value: "{{ .Values.image.modelSnapshots }}"
             - name: TF_FORCE_GPU_ALLOW_GROWTH
               value: "true"
 {{ toYaml .Values.image.env | indent 12 }}
-          # - name: MODEL_SNAPSHOTS_DIRECTORY
-          #   value: "{{ .Values.image.modelSnapshotsPath }}"
           imagePullPolicy: IfNotPresent
-        #   TODO Fix probe checks
-        #   livenessProbe:
-        #     httpGet:
-        #       path: /v2/health/live
-        #       port: http
-        #   readinessProbe:
-        #     initialDelaySeconds: 500
-        #     periodSeconds: 5
-        #     httpGet:
-        #       path: /v2/health/ready
-        #       port: http
+          readinessProbe:
+{{- toYaml .Values.readinessProbe | nindent 12 }}
+          livenessProbe:
+{{- toYaml .Values.livenessProbe | nindent 12 }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
           command: ["/bin/sh"]
@@ -80,22 +73,6 @@ spec:
               name: grpc
             - containerPort: 8002
               name: metrics
-          # lifecycle:
-          #   postStart:
-          #     exec:
-          #       command:
-          #         - >
-          #           /bin/sh -c apt update -yq && apt install libgl1-mesa-glx -y
-                # command:
-                  #  - |
-                    # bash -c "apt update -yq && apt install libgl1-mesa-glx -y"
-        # livenessProbe:
-        #     exec:
-        #         command:
-        #         - ["CMD", "curl", "-f", "http://localhost:8000/v2/health/live"]
-        #     initialDelaySeconds: 30
-        #     periodSeconds: 20
-
       volumes:
         - name: dshm
           emptyDir:
