@@ -1,5 +1,7 @@
 .PHONY: minikube.setup
 
+build: helm.package
+
 minikube.setup:
 	minikube config set memory 16384
 	minikube config set cpus 4
@@ -16,7 +18,6 @@ VERSION=$(shell grep -Po "(?<=version: )([0-9]|\.)*(?=\s|$$)" charts/hypha/Chart
 get.version:
 	echo $(VERSION)
 
-
 tag.release:
 	version=${VERSION}
 	echo "Tagging release ${VERSION}"
@@ -30,5 +31,6 @@ test:
 	helm test hypha
 
 install.and.test: install test
- 
 
+lint:
+	ct lint --config ct.yaml
