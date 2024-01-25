@@ -72,7 +72,7 @@ spec:
           args:
             - -c
             - >-
-              tritonserver --model-store={{ .Values.image.modelStore }} --log-verbose=1 --model-control-mode=poll --repository-poll-secs=60 --exit-on-error=false --strict-model-config=false --model-repository={{ .Values.image.modelRepository}}
+              chmod 1777 /tmp && apt-get update && apt-get install -y libstdc++6 libgl1-mesa-glx && tritonserver --model-store={{ .Values.image.modelStore }} --log-verbose=1 --model-control-mode=poll --strict-readiness=false --repository-poll-secs=60 --exit-on-error=false --strict-model-config=false --model-repository={{ .Values.image.modelRepository}}
           ports:
             - containerPort: 8000
               name: http
