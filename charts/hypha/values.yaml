@@ -11,7 +11,7 @@ s3_endpoint_url_public: https://hs3.local
 auth0_audience: ""
 auth0_domain: ""
 jwt_secret: "xZ/aDcP+PfoTWgwA9ZADTtU/+djwMeMKz4QlSKRcgEs="
-
+nodeSelector: {}
 # TODO
 # Currently disabled in template because no obvious
 # way to pass in the scripts to deployment
@@ -144,3 +144,12 @@ tritoninferenceserver-hypha:
     gpuMemoryUtilization: 50
 
   nodeSelector: {}
+  cache:
+    ephemeral:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          # storageClassName: "standard"
+          resources:
+            requests:
+              storage: 8Gi
