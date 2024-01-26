@@ -83,29 +83,30 @@ spec:
           limits:
             cpu: "0.5"
             memory: "2Gi"
-        # livenessProbe:
-        #   failureThreshold: 3
-        #   httpGet:
-        #     path: "Unknown"
-        #     port: http
-        #     scheme: HTTP
-        #   periodSeconds: 10
-        #   successThreshold: 1
-        #   timeoutSeconds: 1
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: health/liveness
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: health/liveness
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 500
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
         ports:
         - containerPort: {{ .Values.service.port}}
           name: http
           protocol: TCP
-        # readinessProbe:
-        #   failureThreshold: 3
-        #   httpGet:
-        #     path: /v2/health/live
-        #     port: http
-        #     scheme: HTTP
-        #   initialDelaySeconds: 500
-        #   periodSeconds: 5
-        #   successThreshold: 1
-        #   timeoutSeconds: 1
+
       securityContext:
         # fsGroup: 1000
         runAsUser: 0

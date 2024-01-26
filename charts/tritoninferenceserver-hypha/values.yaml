@@ -14,14 +14,7 @@ image:
     value: "true"
 
 cache:
-  ephemeral:
-    volumeClaimTemplate:
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        # storageClassName: "standard"
-        resources:
-          requests:
-            storage: 8Gi
+
 
 ingress:
   enabled: false
@@ -78,3 +71,43 @@ livenessProbe:
   timeoutSeconds: 2
   successThreshold: 1
   failureThreshold: 3
+
+volumes:
+- mountPath: /dev/shm
+  name: dshm
+- mountPath: /opt/tritonserver/caches
+  name: triton-cache
+  subPath: caches
+- mountPath: /model-repository
+  name: triton-cache
+  subPath: model-repository
+- mountPath: /model-snapshots
+  name: triton-cache
+  subPath: model-snapshots
+- mountPath: /tmp
+  name: triton-cache
+  subPath: tmp
+
+volumeMounts:
+- mountPath: /dev/shm
+  name: dshm
+- mountPath: /opt/tritonserver/caches
+  name: triton-cache
+  subPath: caches
+- mountPath: /model-repository
+  name: triton-cache
+  subPath: model-repository
+- mountPath: /model-snapshots
+  name: triton-cache
+  subPath: model-snapshots
+- mountPath: /tmp
+  name: triton-cache
+  subPath: tmp
+  ephemeral:
+    volumeClaimTemplate:
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        # storageClassName: "standard"
+        resources:
+          requests:
+            storage: 8Gi

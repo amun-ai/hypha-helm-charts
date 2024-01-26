@@ -34,20 +34,7 @@ spec:
         - name: tritoninferenceserver
           image: {{ .Values.image.imageName }}
           volumeMounts:
-            - mountPath: /dev/shm
-              name: dshm
-            - mountPath: /opt/tritonserver/caches
-              name: triton-cache
-              subPath: caches
-            - mountPath: /model-repository
-              name: triton-cache
-              subPath: model-repository
-            - mountPath: /model-snapshots
-              name: triton-cache
-              subPath: model-snapshots
-            - mountPath: /tmp
-              name: triton-cache
-              subPath: tmp
+          {{- toYaml .Values.volumeMounts | nindent 10 }}
           env:
             - name: MODEL_SNAPSHOTS_DIRECTORY
               value: "{{ .Values.image.modelSnapshots }}"
@@ -74,12 +61,5 @@ spec:
             - containerPort: 8002
               name: metrics
       volumes:
-        - name: dshm
-          emptyDir:
-              medium: Memory
-        - name: model-repository
-          emptyDir: {}
-        - name: model-snapshots
-          emptyDir: {}
-        - name: triton-cache
+        {{- toYaml .Values.volumes | nindent 8 }}
 {{ toYaml .Values.cache | indent 10 }}
