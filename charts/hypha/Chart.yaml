@@ -20,11 +20,6 @@ version: 0.16.10
 # It is recommended to use it with quotes.
 appVersion: 0.15.35
 dependencies:
-- name: docker-registry
-  # condition: docker-registry-mirror.enabled
-  version: 2.1.0
-  repository: https://helm.twun.io
-  condition: docker-registry.enabled
 - name: minio
   version: 3.3.0
   repository: https://charts.min.io/
@@ -33,14 +28,6 @@ dependencies:
 #   repository: https://helm.ngc.nvidia.com/nvidia
 #   version: 1.0.0
 #   condition: tritoninferenceserver.enabled
-# - name: cert-manager
-#   version: v1.4.2
-#   repository: https://charts.jetstack.io/
-#   condition: cert-manager.enabled
-# - name: ingress-nginx
-#   version: 3.35.0
-#   repository: https://kubernetes.github.io/ingress-nginx
-#   condition: ingress-nginx.enabled
 - name: tritoninferenceserver-hypha
   repository: "file://../tritoninferenceserver-hypha"
   version: 1.0.9

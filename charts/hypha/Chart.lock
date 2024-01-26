@@ -1,7 +1,4 @@
 dependencies:
-- name: docker-registry
-  repository: https://helm.twun.io
-  version: 2.1.0
 - name: minio
   repository: https://charts.min.io/
   version: 3.3.0
@@ -11,5 +8,5 @@ dependencies:
 - name: redis
   repository: https://charts.bitnami.com/bitnami
   version: 17.11.6
-digest: sha256:a8e6743d3a3beac98b2ed56eabec2fabba8e13173604583eca00e859c3ef3ef7
-generated: "2024-01-25T17:28:38.491661896Z"
+digest: sha256:2e34ce493e38bc5ef38d36ea43c24b7f8edfe5b0d21606aab9684e5e25106b97
+generated: "2024-01-26T16:15:22.22953Z"

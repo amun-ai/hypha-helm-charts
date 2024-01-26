@@ -5,5 +5,5 @@ chart-dirs:
 chart-repos:
   - bitnami=https://charts.bitnami.com/bitnami
   - minio=https://charts.min.io/
-  - docker-registry=https://helm.twun.io
+  # - docker-registry=https://helm.twun.io
   - redis=https://charts.bitnami.com/bitnami
