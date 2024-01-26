@@ -2,6 +2,8 @@
 
 build: helm.package
 
+cluster: minikube.setup
+	@echo "Cluster setup complete"
 minikube.setup:
 	minikube config set memory 16384
 	minikube config set cpus 4
@@ -32,5 +34,15 @@ test:
 
 install.and.test: install test
 
+uninstall:
+	helm uninstall hypha
+
+upload.test.models:
+	kubectl create configmap model-repository --from-file=tests/model_repository
+
 lint:
 	ct lint --config ct.yaml
+
+full.test: lint install.and.test
+
+cluster.test:
