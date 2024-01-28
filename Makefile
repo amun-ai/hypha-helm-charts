@@ -45,7 +45,7 @@ upload.test.models:
 	kubectl create configmap model-repository --from-file=tests/model_repository
 
 lint:
-	ct lint --config ct.yaml
+	ct lint --config ct.yaml --helm-extra-args "--timeout 20m"
 
 full.test: lint install.and.test
 
