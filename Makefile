@@ -1,6 +1,6 @@
 .PHONY: minikube.setup
 
-build: helm.package
+build: lint helm.package
 
 cluster: minikube.setup
 	@echo "Cluster setup complete"
@@ -26,9 +26,13 @@ tag.release:
 	git tag -a "v${VERSION}" -m "v${VERSION}" -f
 	git push origin
 
-install:
+install.helm:
 	helm upgrade hypha charts/hypha --install --timeout 20m
 
+install.ct:
+	ct install --config ct.yaml
+
+install: install.ct
 test:
 	helm test hypha
 
@@ -46,3 +50,11 @@ lint:
 full.test: lint install.and.test
 
 cluster.test:
+
+clean: 
+	minikube delete
+
+reset: clean cluster
+
+gha:
+	act --container-architecture linux/arm64
