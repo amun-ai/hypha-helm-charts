@@ -44,8 +44,14 @@ spec:
           imagePullPolicy: IfNotPresent
           readinessProbe:
 {{- toYaml .Values.readinessProbe | nindent 12 }}
+            httpGet:
+              path: /v2/health/ready
+              port: 8000
           livenessProbe:
 {{- toYaml .Values.livenessProbe | nindent 12 }}
+            httpGet:
+              path: /v2/health/live
+              port: 8000
           resources:
 {{ toYaml .Values.resources | indent 12 }}
           command: ["/bin/sh"]
@@ -61,5 +67,4 @@ spec:
             - containerPort: 8002
               name: metrics
       volumes:
-        {{- toYaml .Values.volumes | nindent 8 }}
-{{ toYaml .Values.cache | indent 10 }}
+{{- toYaml .Values.volumes | nindent 8 }}
