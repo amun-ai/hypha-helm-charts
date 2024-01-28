@@ -37,7 +37,7 @@ ingress:
   path: /
   # Used to create an Ingress record.
   hosts:
-  - ""
+    - ""
   annotations: {}
   # kubernetes.io/ingress.class: nginx
   # kubernetes.io/tls-acme: "true"
@@ -98,16 +98,15 @@ tritoninferenceserver-hypha:
     s3Endpoint: ""
     s3Bucket: ""
     env:
-    - name: TF_FORCE_GPU_ALLOW_GROWTH
-      value: "true"
-
+      - name: TF_FORCE_GPU_ALLOW_GROWTH
+        value: "true"
   ingress:
     enabled: false
     className: nginx
     path: /
     # Used to create an Ingress record.
     hosts:
-    - chart-example.local
+      - chart-example.local
     name: tritoninferenceserver
     type: ClusterIP
     port: 8000
@@ -133,14 +132,10 @@ tritoninferenceserver-hypha:
     gpuUtilization: 50
   #   gpuMemoryUtilization: 50
 
-
   nodeSelector: {}
   podLabels: {}
 
   readinessProbe:
-    httpGet:
-      path: /v2/health/ready
-      port: 8000
     initialDelaySeconds: 10
     periodSeconds: 5
     timeoutSeconds: 2
@@ -148,9 +143,6 @@ tritoninferenceserver-hypha:
     failureThreshold: 3
 
   livenessProbe:
-    httpGet:
-      path: /v2/health/live
-      port: 8000
     initialDelaySeconds: 1800
     periodSeconds: 5
     timeoutSeconds: 2
@@ -158,44 +150,34 @@ tritoninferenceserver-hypha:
     failureThreshold: 3
 
   volumes:
-  - mountPath: /dev/shm
-    name: dshm
-  - mountPath: /opt/tritonserver/caches
-    name: triton-cache
-    subPath: caches
-  - mountPath: /model-repository
-    name: triton-cache
-    subPath: model-repository
-  - mountPath: /model-snapshots
-    name: triton-cache
-    subPath: model-snapshots
-  - mountPath: /tmp
-    name: triton-cache
-    subPath: tmp
-
-  volumeMounts:
-  - mountPath: /dev/shm
-    name: dshm
-  - mountPath: /opt/tritonserver/caches
-    name: triton-cache
-    subPath: caches
-  - mountPath: /model-repository
-    name: triton-cache
-    subPath: model-repository
-  - mountPath: /model-snapshots
-    name: triton-cache
-    subPath: model-snapshots
-  - mountPath: /tmp
-    name: triton-cache
-    subPath: tmp
-    cache:
-      ephemeral:
+    - emptyDir:
+        medium: Memory
+      name: dshm
+    - ephemeral:
         volumeClaimTemplate:
+          metadata:
+            creationTimestamp: null
           spec:
-            accessModes: ["ReadWriteOnce"]
-            # storageClassName: "standard"
+            accessModes:
+              - ReadWriteOnce
             resources:
               requests:
-                storage: 8Gi
+                storage: 1Gi
+            # storageClassName: standard
+            volumeMode: Filesystem
+      name: triton-cache
 
-
+  volumeMounts:
+    - mountPath: /dev/shm
+      name: dshm
+    - mountPath: /opt/tritonserver/caches
+      name: triton-cache
+      subPath: caches
+    - mountPath: /model-repository
+      name: triton-cache
+      subPath: model-repository
+    - mountPath: /model-snapshots
+      name: triton-cache
+      subPath: model-snapshots
+    - mountPath: /tmp
+      name: triton-cache
