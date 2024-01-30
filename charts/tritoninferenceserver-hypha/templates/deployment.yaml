@@ -30,6 +30,8 @@ spec:
       securityContext:
         # fsGroup: 1000
         runAsUser: 0
+      initContainers:
+{{ toYaml .Values.initContainers | indent 8 }}
       containers:
         - name: tritoninferenceserver
           image: {{ .Values.image.imageName }}

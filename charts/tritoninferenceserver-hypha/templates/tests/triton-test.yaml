@@ -9,12 +9,12 @@ spec:
     spec:
       containers:
       - name: triton-test
-        image: nvcr.io/nvidia/tritonserver:23.08-py3-clientsdk
+        image: nvcr.io/nvidia/tritonserver:23.12-py3-sdk
         command:
           - "perf_client"
           - "-m"
-          - "simple_model"
+          - "simple"
           - "-u"
-          - "{{ .Release.Name }}-{{ .Values.service.name }}:{{ .Values.service.port }}"
+          - "{{ .Release.Name }}:{{ .Values.service.port }}"
           - "--concurrency=4"
       restartPolicy: Never

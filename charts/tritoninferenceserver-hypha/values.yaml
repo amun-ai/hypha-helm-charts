@@ -10,8 +10,8 @@ image:
   s3Endpoint: ""
   s3Bucket: ""
   env:
-    - name: TF_FORCE_GPU_ALLOW_GROWTH
-      value: "true"
+  - name: TF_FORCE_GPU_ALLOW_GROWTH
+    value: "true"
 
 ingress:
   enabled: false
@@ -19,7 +19,7 @@ ingress:
   path: /
   # Used to create an Ingress record.
   hosts:
-    - chart-example.local
+  - chart-example.local
   name: tritoninferenceserver
   type: ClusterIP
   port: 8000
@@ -36,6 +36,7 @@ resources:
     cpu: "1"
 
 service:
+  name: tritoninferenceserver
   port: 8000
 
 autoscaling:
@@ -68,34 +69,54 @@ livenessProbe:
   successThreshold: 1
   failureThreshold: 3
 
-volumes:
-  - emptyDir:
-      medium: Memory
-    name: dshm
-  - ephemeral:
-      volumeClaimTemplate:
-        metadata:
-          creationTimestamp: null
-        spec:
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: 1Gi
-          # storageClassName: standard-rwo
-          volumeMode: Filesystem
-    name: triton-cache
-volumeMounts:
-  - mountPath: /dev/shm
-    name: dshm
-  - mountPath: /opt/tritonserver/caches
-    name: triton-cache
-    subPath: caches
+initContainers:
+- name: get-models
+  image: alpine/git
+  volumeMounts:
   - mountPath: /model-repository
     name: triton-cache
     subPath: model-repository
-  - mountPath: /model-snapshots
-    name: triton-cache
-    subPath: model-snapshots
-  - mountPath: /tmp
-    name: triton-cache
+  command: ["/bin/sh", "-c"]
+  args:
+  - |
+    git clone https://github.com/triton-inference-server/server.git &&
+    cp -r server/docs/examples/model_repository/. /model-repository
+
+
+# - name: copy-models
+#   image: alpine
+#   command: ["/bin/sh", "-c"]
+#   args:
+#   - cp -r server/docs/examples/model_repository/ /model-repository
+
+volumes:
+- emptyDir:
+    medium: Memory
+  name: dshm
+- ephemeral:
+    volumeClaimTemplate:
+      metadata:
+        creationTimestamp: null
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        # storageClassName: standard-rwo
+        volumeMode: Filesystem
+  name: triton-cache
+volumeMounts:
+- mountPath: /dev/shm
+  name: dshm
+- mountPath: /opt/tritonserver/caches
+  name: triton-cache
+  subPath: caches
+- mountPath: /model-repository
+  name: triton-cache
+  subPath: model-repository
+- mountPath: /model-snapshots
+  name: triton-cache
+  subPath: model-snapshots
+- mountPath: /tmp
+  name: triton-cache
