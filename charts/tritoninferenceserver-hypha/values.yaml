@@ -37,6 +37,13 @@ resources:
 service:
   name: tritoninferenceserver
   port: 8000
+  type: ClusterIP
+  annotations: {}
+  loadBalancerIP: ""
+  loadBalanagerSourceRanges: []
+  sessionAffinity: None
+  sessionAffinityConfig: {}
+  nodePort: ""
 
 autoscaling:
   enabled: false
