@@ -36,8 +36,7 @@ ingress:
   className: nginx
   path: /
   # Used to create an Ingress record.
-  hosts:
-    - ""
+  hosts: []
   annotations: {}
   # kubernetes.io/ingress.class: nginx
   # kubernetes.io/tls-acme: "true"
@@ -57,7 +56,7 @@ autoscaling:
 
 redis:
   fullnameOverride: "redis"
-  enabled: true
+  enabled: enabled
   global:
     redis:
       password: "admin"
@@ -83,101 +82,4 @@ minio:
     requests:
       memory: 2Gi
   persistence:
-    size: 10Gi
-
-tritoninferenceserver-hypha:
-  replicaCount: 1
-  image:
-    imageName: nvcr.io/nvidia/tritonserver:23.08-py3
-    pullPolicy: IfNotPresent
-    # modelRepositoryPath: s3://imjoy-s3.pasteur.fr:80/model-repository
-    modelSnapshots: /model-snapshots
-    modelRepository: /model-repository
-    modelStore: /model-repository
-    numGpus: 0
-    s3Endpoint: ""
-    s3Bucket: ""
-    env:
-      - name: TF_FORCE_GPU_ALLOW_GROWTH
-        value: "true"
-  ingress:
-    enabled: false
-    className: nginx
-    path: /
-    # Used to create an Ingress record.
-    hosts:
-      - chart-example.local
-    name: tritoninferenceserver
-    type: ClusterIP
-    port: 8000
-    annotations: {}
-
-  resources:
-    requests:
-      nvidia.com/gpu: 0
-      memory: "2Gi"
-      cpu: "1"
-    limits:
-      nvidia.com/gpu: 0
-      memory: "3Gi"
-      cpu: "1"
-
-  service:
-    port: 8000
-
-  autoscaling:
-    enabled: false
-    minReplicas: 1
-    maxReplicas: 5
-    gpuUtilization: 50
-  #   gpuMemoryUtilization: 50
-
-  nodeSelector: {}
-  podLabels: {}
-
-  readinessProbe:
-    initialDelaySeconds: 10
-    periodSeconds: 5
-    timeoutSeconds: 2
-    successThreshold: 1
-    failureThreshold: 3
-
-  livenessProbe:
-    initialDelaySeconds: 1800
-    periodSeconds: 5
-    timeoutSeconds: 2
-    successThreshold: 1
-    failureThreshold: 3
-
-  volumes:
-    - emptyDir:
-        medium: Memory
-      name: dshm
-    - ephemeral:
-        volumeClaimTemplate:
-          metadata:
-            creationTimestamp: null
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 1Gi
-            # storageClassName: standard
-            volumeMode: Filesystem
-      name: triton-cache
-
-  volumeMounts:
-    - mountPath: /dev/shm
-      name: dshm
-    - mountPath: /opt/tritonserver/caches
-      name: triton-cache
-      subPath: caches
-    - mountPath: /model-repository
-      name: triton-cache
-      subPath: model-repository
-    - mountPath: /model-snapshots
-      name: triton-cache
-      subPath: model-snapshots
-    - mountPath: /tmp
-      name: triton-cache
+    size: 1Gi
