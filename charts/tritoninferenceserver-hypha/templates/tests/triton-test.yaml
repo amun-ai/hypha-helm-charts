@@ -15,6 +15,6 @@ spec:
           - "-m"
           - "simple"
           - "-u"
-          - "{{ .Release.Name }}:{{ .Values.service.port }}"
+          - "{{ template "tritoninferenceserver.name" . }}:{{ .Values.service.port }}"
           - "--concurrency=4"
       restartPolicy: Never
