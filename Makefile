@@ -1,4 +1,6 @@
 .PHONY: minikube.setup
+CT_CONFIG = ct.yaml
+
 
 build: lint helm.package
 
@@ -45,7 +47,7 @@ upload.test.models:
 	kubectl create configmap model-repository --from-file=tests/model_repository
 
 lint:
-	ct lint --config ct.yaml --helm-extra-args "--timeout 20m"
+	ct lint --config $(CT_CONFIG)
 
 full.test: lint install.and.test
 
