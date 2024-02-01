@@ -7,5 +7,3 @@ chart-repos:
 - minio=https://charts.min.io/
 # - docker-registry=https://helm.twun.io
 - redis=https://charts.bitnami.com/bitnami
-install:
-  timeout: 512s
