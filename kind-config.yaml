@@ -16,9 +16,3 @@ nodes:
   - containerPort: 443
     hostPort: 443
     protocol: TCP
-- role: worker
-  resources:
-    limits:
-      memory: 16384M
-      cpu: "4"
-  # Note: Disk size is not directly configurable in kind, but you can mount a hostPath as shown in the control-plane node.
