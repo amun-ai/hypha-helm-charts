@@ -1,23 +1,23 @@
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: "{{ .Release.Name }}-hypha-test"
-  labels:
-    app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
-  annotations:
-    "helm.sh/hook": test-success
-spec:
-  template:
-    spec:
-      containers:
-      - name: hypha-test
-        image: python:3.8-slim
-        command: ["python", "/scripts/test-hypha.py"]
-        volumeMounts:
-        - name: test-script
-          mountPath: /scripts
-      restartPolicy: Never
-      volumes:
-      - name: test-script
-        configMap:
-          name: {{ .Release.Name }}-test-script
+# apiVersion: batch/v1
+# kind: Job
+# metadata:
+#   name: "{{ .Release.Name }}-hypha-test"
+#   labels:
+#     app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+#   annotations:
+#     "helm.sh/hook": test-success
+# spec:
+#   template:
+#     spec:
+#       containers:
+#       - name: hypha-test
+#         image: python:3.8-slim
+#         command: ["python", "/scripts/test-hypha.py"]
+#         volumeMounts:
+#         - name: test-script
+#           mountPath: /scripts
+#       restartPolicy: Never
+#       volumes:
+#       - name: test-script
+#         configMap:
+#           name: {{ .Release.Name }}-test-script

@@ -15,7 +15,6 @@
 {{ $MINIO_BROWSER_REDIRECT_URL = .Values.minio.browserRedirectUrl }}
 {{- end }}
 
-
 {{- if (index .Values "tritoninferenceserver-hypha" "enabled") }}
 {{ $TRITON_URL = "http://tritoninferenceserver:8000" }}
 {{- end }}
@@ -27,6 +26,19 @@ metadata:
   labels:
     {{- include "hypha.labels" . | nindent 4 }}
 spec:
+  # initContainers:
+  #   # - name: wait-60s
+  #   #   image: busybox
+  #   #   command: ["/bin/sh", "-c"]
+  #   #   args: 
+  #   #   - |
+  #   #     echo "Waiting for 60s"
+  #   #     sleep 60
+  #   - name: dependencies
+  #     image: bitnami/kubectl
+  #     command: ["/bin/sh", "-c"]
+  #     args: -|
+  #       kubectl rollout status --watch --timeout=600s statefulset/redis-master statefulset/minio statefulset/redis-replicas
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -83,29 +95,29 @@ spec:
           limits:
             cpu: "0.5"
             memory: "2Gi"
-        # livenessProbe:
-        #   failureThreshold: 3
-        #   httpGet:
-        #     path: "Unknown"
-        #     port: http
-        #     scheme: HTTP
-        #   periodSeconds: 10
-        #   successThreshold: 1
-        #   timeoutSeconds: 1
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: health/liveness
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: health/liveness
+            port: http
+            scheme: HTTP
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
         ports:
         - containerPort: {{ .Values.service.port}}
           name: http
           protocol: TCP
-        # readinessProbe:
-        #   failureThreshold: 3
-        #   httpGet:
-        #     path: /v2/health/live
-        #     port: http
-        #     scheme: HTTP
-        #   initialDelaySeconds: 500
-        #   periodSeconds: 5
-        #   successThreshold: 1
-        #   timeoutSeconds: 1
+
       securityContext:
         # fsGroup: 1000
         runAsUser: 0
