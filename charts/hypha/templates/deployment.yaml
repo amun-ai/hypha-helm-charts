@@ -15,7 +15,6 @@
 {{ $MINIO_BROWSER_REDIRECT_URL = .Values.minio.browserRedirectUrl }}
 {{- end }}
 
-
 {{- if (index .Values "tritoninferenceserver-hypha" "enabled") }}
 {{ $TRITON_URL = "http://tritoninferenceserver:8000" }}
 {{- end }}
@@ -27,6 +26,19 @@ metadata:
   labels:
     {{- include "hypha.labels" . | nindent 4 }}
 spec:
+  # initContainers:
+  #   # - name: wait-60s
+  #   #   image: busybox
+  #   #   command: ["/bin/sh", "-c"]
+  #   #   args: 
+  #   #   - |
+  #   #     echo "Waiting for 60s"
+  #   #     sleep 60
+  #   - name: dependencies
+  #     image: bitnami/kubectl
+  #     command: ["/bin/sh", "-c"]
+  #     args: -|
+  #       kubectl rollout status --watch --timeout=600s statefulset/redis-master statefulset/minio statefulset/redis-replicas
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -98,7 +110,6 @@ spec:
             path: health/liveness
             port: http
             scheme: HTTP
-          initialDelaySeconds: 500
           periodSeconds: 5
           successThreshold: 1
           timeoutSeconds: 1
