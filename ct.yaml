@@ -1,5 +1,4 @@
 target-branch: main
-helm-extra-args: --timeout 300s
 chart-dirs:
 - charts
 chart-repos:
