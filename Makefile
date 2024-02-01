@@ -30,7 +30,7 @@ install.helm:
 	helm upgrade hypha charts/hypha --install --timeout 20m
 
 install.ct:
-	ct install --config ct.yaml
+	ct install --config ct.yaml 
 
 install: install.ct
 test:
