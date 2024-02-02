@@ -24,7 +24,7 @@ image:
   pullPolicy: IfNotPresent
   tag: "0.15.35"
 
-triton_url: "http://tritoninferenceserver.tritoninferenceserver.svc.cluster.local:8000"
+triton_url: "http://tritoninferenceserver"
 
 service:
   type: ClusterIP
@@ -59,25 +59,22 @@ redis:
   enabled: enabled
   global:
     redis:
-      password: "admin"
+      password: "redis-password"
 
 docker-registry:
   enabled: false
 
 minio:
-  # nameOverride: "minio"
   fullnameOverride: "minio"
   enabled: true
   rootUser: "minio"
-  rootPassword: "xZ/aDcP+PfoTWgwA9ZADTtU/+djwMeMKz4QlSKRcgEs="
+  rootPassword: "minio123"
   publicEndpointUrl: ""
   browserRedirectUrl: ""
 
   replicas: 4
   ingress:
     enabled: true
-    # hosts:
-    # - hs3.imjoy.io
   resources:
     requests:
       memory: 2Gi

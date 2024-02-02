@@ -5,11 +5,7 @@ on:
   push:
     branches:
       - main
-      - dev
   pull_request:
-    branches:
-      - main
-      - dev
   workflow_dispatch:
 
 jobs:
@@ -49,12 +45,14 @@ jobs:
 
       - name: Run chart-testing (lint)
         if: steps.list-changed.outputs.changed == 'true'
-        run: ct lint --config ct.yaml --target-branch ${{ github.event.repository.default_branch }}
+        run: ct lint --config ct.yaml --target-branch ${{ github.event.repository.default_branch }} --all --debug 
 
       - name: Create kind cluster
-        uses: helm/kind-action@v1.8.0    
+        uses: helm/kind-action@v1.8.0
+        with:
+          config: kind-config.yaml  
 
       - name: Run chart-testing (install)
         if: steps.list-changed.outputs.changed == 'true'
-        run: ct install --config ct.yaml --target-branch ${{ github.event.repository.default_branch }}
+        run: ct install --config ct.yaml --target-branch ${{ github.event.repository.default_branch }} --helm-extra-args "--timeout 600s"
          # See https://github.com/helm/chart-testing/blob/main/doc/ct_install.md
