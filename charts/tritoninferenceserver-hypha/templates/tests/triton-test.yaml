@@ -8,6 +8,13 @@ spec:
   template:
     spec:
       containers:
+      - name: get-models
+        image: alpine/git
+        command: ["/bin/sh", "-c"]
+        args:
+        - |
+          git clone https://github.com/triton-inference-server/server.git &&
+          cp -r server/docs/examples/model_repository/. /model-repository
       - name: triton-test
         image: nvcr.io/nvidia/tritonserver:23.12-py3-sdk
         command:
@@ -18,3 +25,5 @@ spec:
           - "{{ template "tritoninferenceserver.name" . }}:{{ .Values.service.port }}"
           - "--concurrency=4"
       restartPolicy: Never
+      # volumes:
+# {{  .Values.volumes | toYaml | nindent 6}}
