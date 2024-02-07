@@ -12,6 +12,8 @@ auth0_audience: ""
 auth0_domain: ""
 jwt_secret: "xZ/aDcP+PfoTWgwA9ZADTtU/+djwMeMKz4QlSKRcgEs="
 nodeSelector: {}
+podLabels: {}
+securityContext: {}
 # TODO
 # Currently disabled in template because no obvious
 # way to pass in the scripts to deployment

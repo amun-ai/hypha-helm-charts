@@ -6,12 +6,12 @@ image:
   modelSnapshots: /model-snapshots
   modelRepository: /model-repository
   modelStore: /model-repository
-  numGpus: 0
   s3Endpoint: ""
   s3Bucket: ""
   env:
   - name: TF_FORCE_GPU_ALLOW_GROWTH
     value: "true"
+
 
 ingress:
   enabled: false
@@ -54,6 +54,7 @@ autoscaling:
 
 nodeSelector: {}
 podLabels: {}
+securityContext: {}
 
 readinessProbe:
   httpGet:

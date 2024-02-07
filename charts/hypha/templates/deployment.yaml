@@ -54,10 +54,10 @@ spec:
       labels:
         {{- include "hypha.selectorLabels" . | nindent 8 }}
     spec:
-      {{- if .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.nodeSelector | indent 8 }}
-      {{- end }}
+      securityContext:
+{{ toYaml .Values.securityContext | indent 8 }}
       containers:
       - name:  {{ .Chart.Name }}
         command: ["/bin/sh", "-c"]
