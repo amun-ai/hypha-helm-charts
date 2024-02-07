@@ -6,12 +6,12 @@ image:
   modelSnapshots: /model-snapshots
   modelRepository: /model-repository
   modelStore: /model-repository
-  numGpus: 0
   s3Endpoint: ""
   s3Bucket: ""
   env:
   - name: TF_FORCE_GPU_ALLOW_GROWTH
     value: "true"
+
 
 ingress:
   enabled: false
@@ -54,6 +54,7 @@ autoscaling:
 
 nodeSelector: {}
 podLabels: {}
+securityContext: {}
 
 readinessProbe:
   httpGet:
@@ -75,19 +76,7 @@ livenessProbe:
   successThreshold: 1
   failureThreshold: 3
 
-initContainers:
-- name: get-models
-  image: alpine/git
-  volumeMounts:
-  - mountPath: /model-repository
-    name: triton-cache
-    subPath: model-repository
-  command: ["/bin/sh", "-c"]
-  args:
-  - |
-    git clone https://github.com/triton-inference-server/server.git &&
-    cp -r server/docs/examples/model_repository/. /model-repository
-
+initContainers: []
 
 # - name: copy-models
 #   image: alpine

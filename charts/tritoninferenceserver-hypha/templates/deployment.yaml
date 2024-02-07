@@ -23,13 +23,11 @@ spec:
 {{ toYaml .Values.podLabels | indent 8 }}
         {{- end }}
     spec:
-      {{- if .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.nodeSelector | indent 8 }}
-      {{- end }}
       securityContext:
+{{ toYaml .Values.securityContext | indent 8 }}
         # fsGroup: 1000
-        runAsUser: 0
       initContainers:
 {{ toYaml .Values.initContainers | indent 8 }}
       containers:
