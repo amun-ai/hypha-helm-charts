@@ -26,11 +26,9 @@ ingress:
 
 resources:
   requests:
-    nvidia.com/gpu: 0
     memory: "2Gi"
     cpu: "1"
   limits:
-    nvidia.com/gpu: 0
     memory: "3Gi"
     cpu: "1"
 
