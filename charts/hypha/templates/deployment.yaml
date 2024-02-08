@@ -71,10 +71,10 @@ spec:
             --triton-servers=http://{{(index .Values "tritoninferenceserver-hypha" "fullnameOverride")}}:{{(index .Values "tritoninferenceserver-hypha" "service" "port")}} \
             {{- end }}
             --enable-s3 \
-            --endpoint-url=http://{{ .Values.minio.fullnameOverride }}:{{.Values.minio.service.port}} \
+            --endpoint-url=http://{{ .Values.minio.fullnameOverride }}:{{.Values.minio.service.ports.api}} \
             --endpoint-url-public={{ $S3_ENDPOINT_URL_PUBLIC }} \
-            --access-key-id="{{ .Values.minio.rootUser }}" \
-            --secret-access="{{ .Values.minio.rootPassword }}" \
+            --access-key-id="{{ .Values.minio.auth.rootUser }}" \
+            --secret-access="{{ .Values.minio.auth.rootPassword }}" \
             --executable-path={{ .Values.executablePath }} \
             --enable-server-apps \
             --apps-dir={{ .Values.appsDir }} \

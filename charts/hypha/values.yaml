@@ -69,16 +69,6 @@ docker-registry:
 minio:
   fullnameOverride: "minio"
   enabled: true
-  rootUser: "minio"
-  rootPassword: "minio123"
-  publicEndpointUrl: ""
-  browserRedirectUrl: ""
-
-  replicas: 4
-  ingress:
-    enabled: true
-  resources:
-    requests:
-      memory: 2Gi
-  persistence:
-    size: 1Gi
+  auth:
+    rootUser: "minio"
+    rootPassword: "minio123"
