@@ -55,9 +55,9 @@ spec:
         {{- include "hypha.selectorLabels" . | nindent 8 }}
     spec:
       nodeSelector:
-{{ toYaml .Values.nodeSelector | indent 8 }}
+{{ toYaml .Values.nodeSelector | nindent 8 }}
       securityContext:
-{{ toYaml .Values.securityContext | indent 8 }}
+{{ toYaml .Values.securityContext | nindent 8 }}
       containers:
       - name:  {{ .Chart.Name }}
         command: ["/bin/sh", "-c"]
