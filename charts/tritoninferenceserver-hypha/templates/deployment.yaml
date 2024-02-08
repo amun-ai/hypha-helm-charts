@@ -20,16 +20,15 @@ spec:
         app: {{ template "tritoninferenceserver.name" . }}
         release: {{ .Release.Name }}
         {{- if .Values.podLabels }}
-{{ toYaml .Values.podLabels | indent 8 }}
+{{ toYaml .Values.podLabels | nindent 8 }}
         {{- end }}
     spec:
       nodeSelector:
-{{ toYaml .Values.nodeSelector | indent 8 }}
+{{ toYaml .Values.nodeSelector | nindent 8 }}
       securityContext:
-{{ toYaml .Values.securityContext | indent 8 }}
-        # fsGroup: 1000
+{{ toYaml .Values.securityContext | nindent 8 }}
       initContainers:
-{{ toYaml .Values.initContainers | indent 8 }}
+{{ toYaml .Values.initContainers | nindent 8 }}
       containers:
         - name: tritoninferenceserver
           image: {{ .Values.image.imageName }}
@@ -40,8 +39,10 @@ spec:
               value: "{{ .Values.image.modelSnapshots }}"
             - name: TF_FORCE_GPU_ALLOW_GROWTH
               value: "true"
-{{ toYaml .Values.image.env | indent 12 }}
+{{ toYaml .Values.image.env | nindent 12 }}
           imagePullPolicy: IfNotPresent
+          securityContext:
+{{ toYaml .Values.securityContext | nindent 12 }}
           readinessProbe:
 {{- toYaml .Values.readinessProbe | nindent 12 }}
             httpGet:
@@ -53,12 +54,12 @@ spec:
               path: /v2/health/live
               port: 8000
           resources:
-{{ toYaml .Values.resources | indent 12 }}
+{{ toYaml .Values.resources | nindent 12 }}
           command: ["/bin/sh"]
           args:
             - -c
             - >-
-              chmod 1777 /tmp && apt-get update && apt-get install -y libstdc++6 libgl1-mesa-glx && tritonserver --model-store={{ .Values.image.modelStore }} --log-verbose=1 --model-control-mode=poll --strict-readiness=false --repository-poll-secs=60 --exit-on-error=false --strict-model-config=false --model-repository={{ .Values.image.modelRepository}}
+              tritonserver --model-store={{ .Values.image.modelStore }} --log-verbose=1 --model-control-mode=poll --strict-readiness=false --repository-poll-secs=60 --exit-on-error=false --strict-model-config=false --model-repository={{ .Values.image.modelRepository}}
           ports:
             - containerPort: 8000
               name: http

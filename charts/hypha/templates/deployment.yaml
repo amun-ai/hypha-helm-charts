@@ -55,9 +55,9 @@ spec:
         {{- include "hypha.selectorLabels" . | nindent 8 }}
     spec:
       nodeSelector:
-{{ toYaml .Values.nodeSelector | indent 8 }}
+{{ toYaml .Values.nodeSelector | nindent 8 }}
       securityContext:
-{{ toYaml .Values.securityContext | indent 8 }}
+{{ toYaml .Values.securityContext | nindent 8 }}
       containers:
       - name:  {{ .Chart.Name }}
         command: ["/bin/sh", "-c"]
@@ -71,10 +71,10 @@ spec:
             --triton-servers=http://{{(index .Values "tritoninferenceserver-hypha" "fullnameOverride")}}:{{(index .Values "tritoninferenceserver-hypha" "service" "port")}} \
             {{- end }}
             --enable-s3 \
-            --endpoint-url=http://{{ .Values.minio.fullnameOverride }}:{{.Values.minio.service.port}} \
+            --endpoint-url=http://{{ .Values.minio.fullnameOverride }}:{{.Values.minio.service.ports.api}} \
             --endpoint-url-public={{ $S3_ENDPOINT_URL_PUBLIC }} \
-            --access-key-id="{{ .Values.minio.rootUser }}" \
-            --secret-access="{{ .Values.minio.rootPassword }}" \
+            --access-key-id="{{ .Values.minio.auth.rootUser }}" \
+            --secret-access="{{ .Values.minio.auth.rootPassword }}" \
             --executable-path={{ .Values.executablePath }} \
             --enable-server-apps \
             --apps-dir={{ .Values.appsDir }} \
@@ -91,6 +91,8 @@ spec:
         # --in-docker \
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        securityContext:
+{{ toYaml .Values.securityContext | nindent 10 }}
         env:
         - name: AUTH0_AUDIENCE
           value:  "{{ $AUTH0_AUDIENCE }}"
@@ -126,8 +128,7 @@ spec:
           protocol: TCP
 
       securityContext:
-        # fsGroup: 1000
-        runAsUser: 0
+{{ toYaml .Values.securityContext | nindent 8 }}
 
 
 

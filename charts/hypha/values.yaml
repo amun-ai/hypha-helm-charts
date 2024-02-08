@@ -13,7 +13,19 @@ auth0_domain: ""
 jwt_secret: "xZ/aDcP+PfoTWgwA9ZADTtU/+djwMeMKz4QlSKRcgEs="
 nodeSelector: {}
 podLabels: {}
-securityContext: {}
+# TODO add when https://github.com/amun-ai/hypha/pull/588
+# securityContext:
+#   enabled: true
+#   seLinuxOptions: null
+#   runAsUser: 1001
+#   runAsNonRoot: true
+#   privileged: false
+#   readOnlyRootFilesystem: false
+#   allowPrivilegeEscalation: false
+#   capabilities:
+#     drop: ["ALL"]
+#   seccompProfile:
+#     type: "RuntimeDefault"
 # TODO
 # Currently disabled in template because no obvious
 # way to pass in the scripts to deployment
@@ -69,16 +81,6 @@ docker-registry:
 minio:
   fullnameOverride: "minio"
   enabled: true
-  rootUser: "minio"
-  rootPassword: "minio123"
-  publicEndpointUrl: ""
-  browserRedirectUrl: ""
-
-  replicas: 4
-  ingress:
-    enabled: true
-  resources:
-    requests:
-      memory: 2Gi
-  persistence:
-    size: 1Gi
+  auth:
+    rootUser: "minio"
+    rootPassword: "minio123"
