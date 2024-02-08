@@ -26,8 +26,7 @@ spec:
       nodeSelector:
 {{ toYaml .Values.nodeSelector | indent 8 }}
       securityContext:
-{{ toYaml .Values.securityContext | indent 8 }}
-        # fsGroup: 1000
+{{ toYaml .Values.securityContext | nindent 8 }}
       initContainers:
 {{ toYaml .Values.initContainers | indent 8 }}
       containers:
@@ -42,6 +41,8 @@ spec:
               value: "true"
 {{ toYaml .Values.image.env | indent 12 }}
           imagePullPolicy: IfNotPresent
+          securityContext:
+{{ toYaml .Values.securityContext | nindent 12 }}
           readinessProbe:
 {{- toYaml .Values.readinessProbe | nindent 12 }}
             httpGet:
@@ -58,7 +59,7 @@ spec:
           args:
             - -c
             - >-
-              chmod 1777 /tmp && apt-get update && apt-get install -y libstdc++6 libgl1-mesa-glx && tritonserver --model-store={{ .Values.image.modelStore }} --log-verbose=1 --model-control-mode=poll --strict-readiness=false --repository-poll-secs=60 --exit-on-error=false --strict-model-config=false --model-repository={{ .Values.image.modelRepository}}
+              tritonserver --model-store={{ .Values.image.modelStore }} --log-verbose=1 --model-control-mode=poll --strict-readiness=false --repository-poll-secs=60 --exit-on-error=false --strict-model-config=false --model-repository={{ .Values.image.modelRepository}}
           ports:
             - containerPort: 8000
               name: http

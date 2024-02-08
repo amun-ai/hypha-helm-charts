@@ -52,7 +52,19 @@ autoscaling:
 
 nodeSelector: {}
 podLabels: {}
-securityContext: {}
+securityContext:
+  enabled: true
+  seLinuxOptions: null
+  runAsUser: 1001
+  runAsNonRoot: true
+  privileged: false
+  readOnlyRootFilesystem: false
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: ["ALL"]
+  seccompProfile:
+    type: "RuntimeDefault"
+
 
 readinessProbe:
   httpGet:
