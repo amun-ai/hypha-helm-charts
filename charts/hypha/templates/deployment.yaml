@@ -91,6 +91,8 @@ spec:
         # --in-docker \
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        securityContext:
+{{ toYaml .Values.securityContext | nindent 10 }}
         env:
         - name: AUTH0_AUDIENCE
           value:  "{{ $AUTH0_AUDIENCE }}"
@@ -126,8 +128,7 @@ spec:
           protocol: TCP
 
       securityContext:
-        # fsGroup: 1000
-        runAsUser: 0
+{{ toYaml .Values.securityContext | nindent 8 }}
 
 
 
