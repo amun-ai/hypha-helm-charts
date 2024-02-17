@@ -15,7 +15,7 @@
 {{ $MINIO_BROWSER_REDIRECT_URL = .Values.minio.browserRedirectUrl }}
 {{- end }}
 
-{{- if (index .Values "tritoninferenceserver-hypha" "enabled") }}
+{{- if (index .Values "tritoninferenceserver" "enabled") }}
 {{ $TRITON_URL = "http://tritoninferenceserver:8000" }}
 {{- end }}
 
@@ -67,9 +67,7 @@ spec:
             --host=0.0.0.0 \
             --port={{ .Values.service.port }} \
             --redis-uri=redis://:{{ .Values.redis.global.redis.password }}@{{ .Values.redis.fullnameOverride }}-master:6379/0 \
-            {{- if (index .Values "tritoninferenceserver-hypha" "enabled") }}
-            --triton-servers=http://{{(index .Values "tritoninferenceserver-hypha" "fullnameOverride")}}:{{(index .Values "tritoninferenceserver-hypha" "service" "port")}} \
-            {{- end }}
+            --triton-servers={{ $TRITON_URL }} \
             --enable-s3 \
             --endpoint-url=http://{{ .Values.minio.fullnameOverride }}:{{.Values.minio.service.ports.api}} \
             --endpoint-url-public={{ $S3_ENDPOINT_URL_PUBLIC }} \

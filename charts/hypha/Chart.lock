@@ -2,11 +2,11 @@ dependencies:
 - name: minio
   repository: https://charts.bitnami.com/bitnami
   version: 13.4.3
-- name: tritoninferenceserver-hypha
-  repository: file://../tritoninferenceserver-hypha
-  version: 1.0.13
+- name: tritoninferenceserver
+  repository: file://../tritoninferenceserver
+  version: 1.0.15
 - name: redis
   repository: https://charts.bitnami.com/bitnami
   version: 17.11.6
-digest: sha256:6db886f63b952120e9c3f63d986c30bda2c39b008562bae5d7b16743ce2b75b3
-generated: "2024-02-08T08:55:56.380060859Z"
+digest: sha256:a8c4285fb47619f6768ef74cc319a71a6531c14fe351ec7f78ef1ce796c1d232
+generated: "2024-02-13T10:57:03.973725184Z"

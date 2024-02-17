@@ -19,3 +19,24 @@
 {{- end -}}
 {{- end -}}
 {{- end -}}
+
+
+{{/*
+Common labels
+*/}}
+{{- define "tritoninferenceserver.labels" -}}
+helm.sh/chart: {{ include "tritoninferenceserver.chart" . }}
+{{ include "tritoninferenceserver.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Selector labels
+*/}}
+{{- define "tritoninferenceserver.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "tritoninferenceserver.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
