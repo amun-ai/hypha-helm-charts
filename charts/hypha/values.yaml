@@ -13,6 +13,7 @@ auth0_domain: ""
 jwt_secret: "xZ/aDcP+PfoTWgwA9ZADTtU/+djwMeMKz4QlSKRcgEs="
 nodeSelector: {}
 podLabels: {}
+
 # TODO add when https://github.com/amun-ai/hypha/pull/588
 # securityContext:
 #   enabled: true
@@ -84,3 +85,10 @@ minio:
   auth:
     rootUser: "minio"
     rootPassword: "minio123"
+
+  # mode: "distributed"
+  # statefulset:
+  #   replicaCount: 4
+
+# tritoninferenceserver:
+#   nameOverride: "tritoninferenceserver"

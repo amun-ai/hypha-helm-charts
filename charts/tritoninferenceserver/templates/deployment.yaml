@@ -12,13 +12,11 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "tritoninferenceserver.name" . }}
-      release: {{ .Release.Name }}
+{{- include "tritoninferenceserver.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: {{ template "tritoninferenceserver.name" . }}
-        release: {{ .Release.Name }}
+        {{- include "tritoninferenceserver.selectorLabels" . | nindent 8 }}
         {{- if .Values.podLabels }}
 {{ toYaml .Values.podLabels | nindent 8 }}
         {{- end }}
@@ -48,6 +46,11 @@ spec:
             httpGet:
               path: /v2/health/ready
               port: 8000
+          startupProbe:
+            httpGet:
+              path: /v2/models
+              port: 8000
+{{- toYaml .Values.startupProbe | nindent 12 }}
           livenessProbe:
 {{- toYaml .Values.livenessProbe | nindent 12 }}
             httpGet:
