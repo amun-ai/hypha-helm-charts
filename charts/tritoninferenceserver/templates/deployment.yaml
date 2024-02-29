@@ -33,6 +33,10 @@ spec:
           volumeMounts:
           {{- toYaml .Values.volumeMounts | nindent 10 }}
           env:
+            - name: TF_FORCE_GPU_ALLOW_GROWTH
+              value: "true"
+            - name: HOME
+              value: "/tmp"
             - name: MODEL_SNAPSHOTS_DIRECTORY
               value: "{{ .Values.image.modelSnapshots }}"
             - name: TF_FORCE_GPU_ALLOW_GROWTH
