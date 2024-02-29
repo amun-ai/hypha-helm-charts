@@ -54,8 +54,8 @@ podLabels: {}
 securityContext:
   enabled: true
   seLinuxOptions: null
-  runAsUser: 1000
-  fsGroup: 1000
+  runAsUser: 1001
+  fsGroup: 1001
   runAsNonRoot: true
   privileged: false
   readOnlyRootFilesystem: false
@@ -64,6 +64,7 @@ securityContext:
     drop: ["ALL"]
   seccompProfile:
     type: "RuntimeDefault"
+
 
 readinessProbe:
   httpGet:
@@ -130,4 +131,3 @@ volumeMounts:
   subPath: model-snapshots
 - mountPath: /tmp
   name: triton-cache
-  subPath: tmp

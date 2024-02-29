@@ -4,9 +4,9 @@ dependencies:
   version: 13.4.3
 - name: tritoninferenceserver
   repository: file://../tritoninferenceserver
-  version: 1.1.1
+  version: 1.1.0
 - name: redis
   repository: https://charts.bitnami.com/bitnami
   version: 17.11.6
-digest: sha256:2e2b08803dce37c0b2563b94ad98eb20b1a97050a432d4e14fc31d118d4b00bc
-generated: "2024-02-28T09:44:45.271230152Z"
+digest: sha256:4ddffcc437f1c6a058c6417aa70b0ce49e2094894137925655197d803941c14e
+generated: "2024-02-17T16:13:51.942747589Z"
