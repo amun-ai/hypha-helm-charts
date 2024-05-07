@@ -29,7 +29,7 @@ spec:
 {{ toYaml .Values.initContainers | nindent 8 }}
       containers:
         - name: tritoninferenceserver
-          image: {{ .Values.image.imageName }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           volumeMounts:
           {{- toYaml .Values.volumeMounts | nindent 10 }}
           env:

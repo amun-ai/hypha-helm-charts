@@ -14,6 +14,8 @@ jwt_secret: "xZ/aDcP+PfoTWgwA9ZADTtU/+djwMeMKz4QlSKRcgEs="
 nodeSelector: {}
 podLabels: {}
 
+startupFunctionsURI: {}
+
 # TODO add when https://github.com/amun-ai/hypha/pull/588
 # securityContext:
 #   enabled: true
@@ -37,7 +39,7 @@ executablePath: /home/bin
 image:
   repository: ghcr.io/amun-ai/hypha
   pullPolicy: IfNotPresent
-  tag: "0.15.35"
+  tag: "0.15.50"
 
 triton_url: "http://tritoninferenceserver"
 
