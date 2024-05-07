@@ -77,7 +77,9 @@ spec:
             --enable-server-apps \
             --apps-dir={{ .Values.appsDir }} \
             --public-base-url={{ .Values.hyphaHostName }} \
-
+            {{- if .Values.startup_functions_URI  }}
+            --startup-functions={{ .Values.startup_functions_URI }} \
+            {{- end }}
             
 #  TODO add option for non minio s3
 
