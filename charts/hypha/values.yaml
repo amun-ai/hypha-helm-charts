@@ -39,7 +39,7 @@ executablePath: /home/bin
 image:
   repository: ghcr.io/amun-ai/hypha
   pullPolicy: IfNotPresent
-  tag: "0.15.50"
+  tag: "0.20.38"
 
 triton_url: "http://tritoninferenceserver"
 
