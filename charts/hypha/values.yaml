@@ -17,18 +17,18 @@ podLabels: {}
 startupFunctionsURI: {}
 
 # TODO add when https://github.com/amun-ai/hypha/pull/588
-# securityContext:
-#   enabled: true
-#   seLinuxOptions: null
-#   runAsUser: 1001
-#   runAsNonRoot: true
-#   privileged: false
-#   readOnlyRootFilesystem: false
-#   allowPrivilegeEscalation: false
-#   capabilities:
-#     drop: ["ALL"]
-#   seccompProfile:
-#     type: "RuntimeDefault"
+securityContext:
+  enabled: true
+  seLinuxOptions: null
+  runAsUser: 1001
+  runAsNonRoot: true
+  privileged: false
+  readOnlyRootFilesystem: false
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: ["ALL"]
+  seccompProfile:
+    type: "RuntimeDefault"
 # TODO
 # Currently disabled in template because no obvious
 # way to pass in the scripts to deployment
