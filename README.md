@@ -1,5 +1,15 @@
 # Hypha Helm Chart
 
+> ⚠️ **Deprecation Notice**
+>
+> This repository is **deprecated** and will no longer be maintained.
+>
+> Please use the updated Hypha Helm charts available at:  
+> [https://github.com/amun-ai/hypha/tree/main/helm-charts](https://github.com/amun-ai/hypha/tree/main/helm-charts)
+>
+> Future updates, bug fixes, and new features will be provided **only** in the new location.
+
+
 This document details how to add the Hypha Helm chart repository, install the Hypha chart, manage values files, generate secrets, and check available chart versions. Additionally, it covers dependencies and the configuration for the Triton Inference Server, including how to load models from an S3-compatible service like Minio.
 
 ## Adding the Helm Chart Repository
